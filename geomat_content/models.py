@@ -110,3 +110,49 @@ class Cleavage(models.Model):
         related_name="cleavage",
         on_delete=models.CASCADE
     )
+
+
+class CrystalSystem(models.Model):
+    """
+    Defines a crystal system, which then should be used as a ForeignKey
+    inside the MineralType class.
+    """
+    CRYSTAL_SYSTEM_CHOICES = (
+        ('TC', _("Triclinic")),
+        ('MC', _("Monoclinic")),
+        ('OR', _("Orthorhombic")),
+        ('TT', _("Tetragonal")),
+        ('TR', _("Trigonal")),
+        ('HG', _("Hexagonal")),
+        ('CB', _("Cubic")),
+        ('AM', _("Amorph")), )
+
+    mineral_type = models.ForeignKey(
+        MineralType,
+        null=True,
+        verbose_name=_('mineral type'),
+        on_delete=models.CASCADE,
+        related_name="crystal_system"
+    )
+    crystal_system = models.CharField(
+        max_length=2,
+        blank=True,
+        choices=CRYSTAL_SYSTEM_CHOICES,
+        verbose_name=_("crystal system")
+    )
+    temperature = models.IntegerField(
+        blank=True, null=True, verbose_name=_('temperature')
+    )
+    pressure = models.IntegerField(
+        blank=True, null=True, verbose_name=_('pressure')
+    )
+
+    class Meta:
+        verbose_name = _("Crystal System")
+        verbose_name_plural = _("Crystal Systems")
+
+    def __str__(self):
+        return "{} ({})".format(
+            self.mineral_type.minerals,
+            self.crystal_system
+        )
