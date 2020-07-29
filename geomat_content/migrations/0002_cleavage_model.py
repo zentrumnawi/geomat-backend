@@ -7,17 +7,57 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geomat_content', '0001_initial'),
+        ("geomat_content", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Cleavage',
+            name="Cleavage",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cleavage', models.CharField(choices=[('PE', 'perfect'), ('LP', 'less perfect'), ('GO', 'good'), ('DI', 'distinct'), ('ID', 'indistinct'), ('NO', 'none')], max_length=2, verbose_name='cleavage')),
-                ('coordinates', models.CharField(blank=True, default='', max_length=100, verbose_name='coordinates')),
-                ('mineral_type', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='cleavage', to='geomat_content.MineralType', verbose_name='mineral type')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "cleavage",
+                    models.CharField(
+                        choices=[
+                            ("PE", "perfect"),
+                            ("LP", "less perfect"),
+                            ("GO", "good"),
+                            ("DI", "distinct"),
+                            ("ID", "indistinct"),
+                            ("NO", "none"),
+                        ],
+                        max_length=2,
+                        verbose_name="cleavage",
+                    ),
+                ),
+                (
+                    "coordinates",
+                    models.CharField(
+                        blank=True,
+                        default="",
+                        max_length=100,
+                        verbose_name="coordinates",
+                    ),
+                ),
+                (
+                    "mineral_type",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="cleavage",
+                        to="geomat_content.MineralType",
+                        verbose_name="mineral type",
+                    ),
+                ),
             ],
         ),
     ]
