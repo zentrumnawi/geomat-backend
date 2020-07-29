@@ -78,3 +78,35 @@ class MineralType(BaseProfile):
 
     def __str__(self):
         return self.trivial_name
+
+
+class Cleavage(models.Model):
+    """
+    Defines a Cleavage which should be used as a ForeignKey
+    inside the Mineraltype Class.
+    """
+
+    CLEAVAGE_CHOICES = (
+        ('PE', _("perfect")),
+        ('LP', _("less perfect")),
+        ('GO', _("good")),
+        ('DI', _("distinct")),
+        ('ID', _("indistinct")),
+        ('NO', _("none")), )
+
+    cleavage = models.CharField(
+        max_length=2, choices=CLEAVAGE_CHOICES, verbose_name=_("cleavage")
+    )
+
+    coordinates = models.CharField(
+        max_length=100, default="", blank=True, verbose_name=_("coordinates")
+    )
+
+    mineral_type = models.ForeignKey(
+        MineralType,
+        blank=True,
+        null=True,
+        verbose_name=_("mineral type"),
+        related_name="cleavage",
+        on_delete=models.CASCADE
+    )
