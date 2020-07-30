@@ -16,6 +16,7 @@ raven = "^6.10.0"
 solid-backend = "^0.1.6"
 djangorestframework = "^3.11.0"
 drf_yasg = "^1.17.1"
+django-cors-headers = "^3.4.0"
 
 
 [tool.poetry.dev-dependencies]
