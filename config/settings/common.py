@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     "solid_backend.quiz",
     "solid_backend.photograph",
     "rest_framework",
-    "corsheaders"
+    "corsheaders",
+    "mptt",
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 MIDDLEWARE = [
