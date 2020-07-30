@@ -67,6 +67,7 @@ class MineralType(BaseProfile):
         related_name="profiles",
         on_delete=models.DO_NOTHING,
         null=True,
+        blank=True,
         verbose_name=_("Steckbrief-Ebene"),
     )
 

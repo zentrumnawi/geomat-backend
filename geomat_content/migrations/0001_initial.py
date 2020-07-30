@@ -136,6 +136,7 @@ class Migration(migrations.Migration):
                     "systematics",
                     models.ForeignKey(
                         null=True,
+                        blank=True,
                         on_delete=django.db.models.deletion.DO_NOTHING,
                         related_name="profiles",
                         to="content.TreeNode",
