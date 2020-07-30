@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "solid_backend.slideshow",
     "solid_backend.quiz",
     "solid_backend.photograph",
+    "rest_framework"
 ]
 
 MIDDLEWARE = [
@@ -122,3 +123,11 @@ STATICFILES_FINDERS = (
 # Locale
 LANGUAGES = [("de", _("German")), ("en", _("English"))]
 LOCALE_PATHS = [str(ROOT_DIR("locale"))]
+
+
+PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER = env(
+    "PROFILES_SERIALIZER", default=""
+).rsplit(".", 1)
+
+DATABASE_FIELD_MAPPING = {}
+CORS_ORIGIN_ALLOW_ALL = True
