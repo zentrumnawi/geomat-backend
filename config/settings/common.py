@@ -14,7 +14,7 @@ import environ
 from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 ROOT_DIR = environ.Path(__file__) - 3
 APPS_DIR = ROOT_DIR.path("geomat_content")
@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     "solid_backend.message",
     "solid_backend.slideshow",
     "solid_backend.quiz",
-    "solid_backend.photograph"
+    "solid_backend.photograph",
+    "rest_framework",
+    "corsheaders",
+    "mptt",
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 MIDDLEWARE = [
@@ -75,9 +79,9 @@ WSGI_APPLICATION = "config.wsgi.application"
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-    "default":
-    env.db(
-        "DATABASE_URL", default="postgres://postgres@localhost:5432/postgres"),
+    "default": env.db(
+        "DATABASE_URL", default="postgres://postgres@localhost:5432/postgres"
+    ),
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
@@ -86,21 +90,11 @@ DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME":
-        "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {
-        "NAME":
-        "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME":
-        "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME":
-        "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
 # Internationalization
@@ -116,6 +110,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+MEDIA_ROOT = ROOT_DIR("media/")
+MEDIA_URL = "media/"
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
@@ -123,11 +121,20 @@ USE_TZ = True
 STATIC_ROOT = str(ROOT_DIR("staticfiles"))
 STATIC_URL = "/static/"
 
-STATICFILES_DIRS = (str(APPS_DIR.path("static")), )
+STATICFILES_DIRS = (str(APPS_DIR.path("static")),)
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder", )
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+)
 
 # Locale
 LANGUAGES = [("de", _("German")), ("en", _("English"))]
 LOCALE_PATHS = [str(ROOT_DIR("locale"))]
+
+
+PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER = env(
+    "PROFILES_SERIALIZER", default=""
+).rsplit(".", 1)
+
+DATABASE_FIELD_MAPPING = {}
+CORS_ORIGIN_ALLOW_ALL = True

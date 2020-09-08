@@ -14,6 +14,12 @@ gevent = "1.4.0"
 whitenoise = "^5.0.1"
 raven = "^6.10.0"
 solid-backend = "^0.1.6"
+djangorestframework = "^3.11.0"
+drf_yasg = "^1.17.1"
+django-cors-headers = "^3.4.0"
+django-mptt = "^0.11.0"
+django-cleanup = "^4.0.0"
+
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.4"
@@ -28,7 +34,16 @@ coverage = "^5.0.4"
 django-coverage-plugin = "^1.8.0"
 pytest-cov = "^2.8.1"
 codecov = "^2.0.22"
+black = "^19.10b0"
 
+[tool.black]
+exclude = '''
+/(
+    api\/migrations
+  | feedback\/migrations
+)/
+'''
 [build-system]
 # Should be the same as `$POETRY_VERSION`:
 requires = ["poetry>=1.0.5"]
+
