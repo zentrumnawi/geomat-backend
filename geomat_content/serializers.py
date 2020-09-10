@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from drf_yasg.utils import swagger_serializer_method
+from solid_backend.photograph.serializers import PhotographSerializer
 
 from .models import Cleavage, CrystalSystem, MineralType
 
@@ -45,6 +46,7 @@ class MineralTypeSerializer(serializers.ModelSerializer):
     mohs_scale = serializers.SerializerMethodField()
     crystal_system = CrystalSystemSerializer(many=True)
     cleavage = CleavageSerializer(many=True)
+    photographs = PhotographSerializer(many=True)
 
     class Meta:
         model = MineralType
