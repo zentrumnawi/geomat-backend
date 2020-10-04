@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "mptt",
+    "drf_yasg",
     "django_cleanup.apps.CleanupConfig",
 ]
 
