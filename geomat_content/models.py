@@ -62,15 +62,6 @@ class MineralType(BaseProfile):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     last_modified = models.DateTimeField(auto_now=True, verbose_name=_("last modified"))
 
-    systematics = models.ForeignKey(
-        TreeNode,
-        related_name="profiles",
-        on_delete=models.DO_NOTHING,
-        null=True,
-        blank=True,
-        verbose_name=_("Steckbrief-Ebene"),
-    )
-
     class Meta:
         verbose_name = _("mineral type")
         verbose_name_plural = _("mineral types")
