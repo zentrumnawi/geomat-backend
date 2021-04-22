@@ -34,7 +34,7 @@ class MineralType(BaseProfile):
         max_length=100, blank=True, verbose_name=_("trivial name")
     )
     variety = models.CharField(max_length=100, blank=True, verbose_name=_("variety"))
-    minerals = models.CharField(max_length=100, blank=True, verbose_name=_("minerals"))
+    name = models.CharField(max_length=100, blank=True, verbose_name=_("minerals"))
     mohs_scale = DecimalRangeField(null=True, blank=True)
     density = DecimalRangeField(null=True, blank=True)
     streak = models.CharField(max_length=100, verbose_name=_("streak"))
@@ -61,15 +61,6 @@ class MineralType(BaseProfile):
     )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     last_modified = models.DateTimeField(auto_now=True, verbose_name=_("last modified"))
-
-    systematics = models.ForeignKey(
-        TreeNode,
-        related_name="profiles",
-        on_delete=models.DO_NOTHING,
-        null=True,
-        blank=True,
-        verbose_name=_("Steckbrief-Ebene"),
-    )
 
     class Meta:
         verbose_name = _("mineral type")

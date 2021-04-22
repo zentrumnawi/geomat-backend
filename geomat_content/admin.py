@@ -27,7 +27,7 @@ class CleavageInline(admin.TabularInline):
 
 class MineralTypeAdmin(admin.ModelAdmin):
 
-    list_display = ('minerals', 'variety',
+    list_display = ('name', 'variety',
                     'trivial_name', 'created_at', 'last_modified',
                     'id')
     form = MineraltypeModelForm
