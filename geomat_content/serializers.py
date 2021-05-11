@@ -5,6 +5,22 @@ from solid_backend.photograph.serializers import PhotographSerializer
 from .models import Cleavage, CrystalSystem, MineralType
 
 
+class MdStringField(serializers.CharField):
+
+    class Meta:
+        swagger_schema_fields = {
+            "type": "mdstring"
+        }
+
+
+class ColStringField(serializers.CharField):
+
+    class Meta:
+        swagger_schema_fields = {
+            "type": "colstring"
+        }
+
+
 class CleavageSerializer(serializers.ModelSerializer):
 
     cleavage = serializers.SerializerMethodField()
@@ -48,6 +64,9 @@ class MineralTypeSerializer(serializers.ModelSerializer):
     cleavage = CleavageSerializer(many=True)
     photographs = PhotographSerializer(many=True)
 
+    chemical_formula = MdStringField()
+    normal_color = ColStringField()
+    
     class Meta:
         model = MineralType
         fields = '__all__'
