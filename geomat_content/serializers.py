@@ -88,6 +88,7 @@ class PropertySerializer(serializers.ModelSerializer):
     density = serializers.SerializerMethodField()
     mohs_scale = serializers.SerializerMethodField()
     normal_color = ColStringField()
+    chemical_formula = MdStringField()
 
     class Meta:
         model = Property
