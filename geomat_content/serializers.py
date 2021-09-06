@@ -1,9 +1,13 @@
 from rest_framework import serializers
 from solid_backend.media_object.serializers import MediaObjectSerializer
+from django.utils.translation import ugettext_lazy as _
+from solid_backend.photograph.serializers import PhotographSerializer
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import extend_schema_field, extend_schema_serializer
 
 from .models import MineralType, Property, Miscellaneous
+from drf_spectacular.utils import extend_schema_field
+from .models import CrystalSystem, MineralType
 
 
 class MdStringField(serializers.CharField):
@@ -69,6 +73,14 @@ class RangeOrSingleNumberField(serializers.CharField):
         return "{0} - {1}".format(value.lower, value.upper).replace(".", ",")
 
 
+class SystematicsField(serializers.CharField):
+
+    def to_representation(self, value):
+        if value:
+            return value.name
+        return None
+
+
 class PropertySerializer(serializers.ModelSerializer):
 
     fracture = ListVerboseField(Property.FRACTURE_CHOICES)
@@ -102,7 +114,7 @@ class MiscellaneousSerializer(serializers.ModelSerializer):
 
 
 class MineralTypeSerializer(serializers.ModelSerializer):
-    systematics = serializers.SerializerMethodField()
+    systematics = SystematicsField(label=_("systematics"))
     chemical_formula = MdStringField()
     crystal_system = CrystalSystemField()
     media_objects = MediaObjectSerializer(many=True)

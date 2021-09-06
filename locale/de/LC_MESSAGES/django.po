@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-06 18:08+0200\n"
+"POT-Creation-Date: 2021-09-06 18:14+0200\n"
 "PO-Revision-Date: 2019-02-18 12:34+0053\n"
 "Last-Translator: b'  <>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -236,6 +236,10 @@ msgstr "Kristallsystem"
 msgid "Crystal Systems"
 msgstr "Kristallsysteme"
 
+#: geomat_content/serializers.py:100
+msgid "systematics"
+msgstr "Systematik"
+
 #~ msgid "mineral type(s)"
 #~ msgstr "Mineralart"
 
@@ -333,9 +337,6 @@ msgstr "Kristallsysteme"
 
 #~ msgid "Framework Silicates"
 #~ msgstr "Gerüstsilikate"
-
-#~ msgid "systematics"
-#~ msgstr "Systematik"
 
 #~| msgid "systematics"
 #~ msgid "splitted systematics"
