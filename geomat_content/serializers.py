@@ -10,20 +10,21 @@ from drf_spectacular.utils import extend_schema_field
 from .models import CrystalSystem, MineralType
 
 
-class MdStringField(serializers.CharField):
+class VerboseLabelField:
 
-    class Meta:
-        swagger_schema_fields = {
-            "type": "mdstring"
-        }
+    def bind(self, field_name, parent):
+        super(VerboseLabelField, self).bind(field_name, parent)
+        self.label = self.parent.Meta.model._meta.get_field(self.field_name).verbose_name
 
 
-class ColStringField(serializers.CharField):
+@extend_schema_field({"type": "mdstring"})
+class MdStringField(VerboseLabelField, serializers.CharField):
+    pass
 
-    class Meta:
-        swagger_schema_fields = {
-            "type": "colstring"
-        }
+
+@extend_schema_field({"type": "colstring"})
+class ColStringField(VerboseLabelField, serializers.CharField):
+    pass
 
 
 class CrystalSystemField(serializers.CharField):
@@ -44,7 +45,8 @@ class CrystalSystemField(serializers.CharField):
         return return_str
 
 
-class ListVerboseField(serializers.CharField):
+@extend_schema_field({"type": "array", "items": {"type": "string"}})
+class ListVerboseField(VerboseLabelField, serializers.ListField):
 
     def __init__(self, choice_dict, **kwargs):
         super(ListVerboseField, self).__init__()
@@ -61,7 +63,7 @@ class ListVerboseField(serializers.CharField):
         return lst
 
 
-class RangeOrSingleNumberField(serializers.CharField):
+class RangeOrSingleNumberField(VerboseLabelField, serializers.CharField):
 
     def bind(self, field_name, parent):
         super(RangeOrSingleNumberField, self).bind(field_name, parent)
@@ -73,7 +75,7 @@ class RangeOrSingleNumberField(serializers.CharField):
         return "{0} - {1}".format(value.lower, value.upper).replace(".", ",")
 
 
-class SystematicsField(serializers.CharField):
+class SystematicsField(VerboseLabelField, serializers.CharField):
 
     def to_representation(self, value):
         if value:
