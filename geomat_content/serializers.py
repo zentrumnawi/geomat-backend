@@ -57,6 +57,18 @@ class ListVerboseField(serializers.CharField):
         return lst
 
 
+class RangeOrSingleNumberField(serializers.CharField):
+
+    def bind(self, field_name, parent):
+        super(RangeOrSingleNumberField, self).bind(field_name, parent)
+        self.label = self.parent.Meta.model._meta.get_field(self.field_name).verbose_name
+
+    def to_representation(self, value):
+        if float(value.upper) == float(value.lower) + 0.001:
+            return "{}".format(value.lower).replace(".", ",")
+        return "{0} - {1}".format(value.lower, value.upper).replace(".", ",")
+
+
 class PropertySerializer(serializers.ModelSerializer):
 
     fracture = ListVerboseField(Property.FRACTURE_CHOICES)

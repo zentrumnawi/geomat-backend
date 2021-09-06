@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-07 11:14+0100\n"
+"POT-Creation-Date: 2021-09-06 18:08+0200\n"
 "PO-Revision-Date: 2019-02-18 12:34+0053\n"
 "Last-Translator: b'  <>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,513 +19,441 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.9.1\n"
 
-#: config/settings/common.py:126
+#: config/settings/common.py:135
 msgid "German"
 msgstr "Deutsch"
 
-#: config/settings/common.py:127
+#: config/settings/common.py:135
 msgid "English"
 msgstr "Englisch"
 
-#: geomat/stein/admin.py:59 geomat/stein/models.py:235
-msgid "mineral type(s)"
-msgstr "Mineralart"
-
-#: geomat/stein/admin.py:117 geomat/stein/models.py:349
-msgid "question"
-msgstr "Frage"
-
-#: geomat/stein/models.py:18
-msgid "Elements"
-msgstr "Elemente"
-
-#: geomat/stein/models.py:19
-msgid "Sulfides & Sulfosalts"
-msgstr "Sulfide und Sulfosalze"
-
-#: geomat/stein/models.py:20
-msgid "Halogenides"
-msgstr "Halogenide"
-
-#: geomat/stein/models.py:21
-msgid "Oxides and Hydroxides"
-msgstr "Oxide und Hydroxide"
-
-#: geomat/stein/models.py:22
-msgid "Carbonates and Nitrates"
-msgstr "Carbonate und Nitrate"
-
-#: geomat/stein/models.py:23
-msgid "Borates"
-msgstr "Borate"
-
-#: geomat/stein/models.py:24
-msgid "Sulfates"
-msgstr "Sulfate"
-
-#: geomat/stein/models.py:25
-msgid "Phosphates, Arsenates & Vanadates"
-msgstr "Phosphate, Arsenate und Vanadate"
-
-#: geomat/stein/models.py:26
-msgid "Silicates & Germanates"
-msgstr "Silikate und Germanate"
-
-#: geomat/stein/models.py:27
-msgid "Organic Compounds"
-msgstr "Organische Verbindungen"
-
-#: geomat/stein/models.py:29
-#| msgid "Sulfates"
-msgid "Sulfides"
-msgstr "Sulfide"
-
-#: geomat/stein/models.py:30
-#| msgid "Sulfates"
-msgid "Sulfosalts"
-msgstr "Sulfosalze"
-
-#: geomat/stein/models.py:31
-#| msgid "Carbonates and Nitrates"
-msgid "Carbonates"
-msgstr "Carbonate"
-
-#: geomat/stein/models.py:32
-#| msgid "Borates"
-msgid "Nitrates"
-msgstr "Nitrate"
-
-#: geomat/stein/models.py:33
-msgid "Phosphates"
-msgstr "Phosphate"
-
-#: geomat/stein/models.py:34
-#| msgid "Borates"
-msgid "Arsenates"
-msgstr "Aresenate"
-
-#: geomat/stein/models.py:35
-msgid "Vanadates"
-msgstr "Vanadate"
-
-#: geomat/stein/models.py:36
-#| msgid "Sulfates"
-msgid "Silicates"
-msgstr "Silikate"
-
-#: geomat/stein/models.py:37
-#| msgid "German"
-msgid "Germanates"
-msgstr "Germanate"
-
-#: geomat/stein/models.py:38
-msgid "Oxides"
-msgstr "Oxide"
-
-#: geomat/stein/models.py:39
-#| msgid "Oxides and Hydroxides"
-msgid "Hydroxides"
-msgstr "Hydroxide"
-
-#: geomat/stein/models.py:41
-msgid "Island Silicates"
-msgstr "Inselsilikate"
-
-#: geomat/stein/models.py:42
-msgid "Group Silicates"
-msgstr "Gruppensilikate"
-
-#: geomat/stein/models.py:43
-msgid "Chain Silicates"
-msgstr "Kettensilikate"
-
-#: geomat/stein/models.py:44
-msgid "Double Chain Silicates"
-msgstr "Doppelkettensilikate"
-
-#: geomat/stein/models.py:45
-msgid "Cyclo Silicates"
-msgstr "Ringsilikate"
-
-#: geomat/stein/models.py:46
-msgid "Phyllo Silicates"
-msgstr "Schichtsilikate"
-
-#: geomat/stein/models.py:47
-msgid "Framework Silicates"
-msgstr "Gerüstsilikate"
-
-#: geomat/stein/models.py:49 geomat/stein/models.py:140
-msgid "perfect"
-msgstr "höchst vollkommen"
-
-#: geomat/stein/models.py:50 geomat/stein/models.py:141
-msgid "less perfect"
-msgstr "vollkommen"
-
-#: geomat/stein/models.py:51 geomat/stein/models.py:142
-msgid "good"
-msgstr "gut"
-
-#: geomat/stein/models.py:52 geomat/stein/models.py:143
-msgid "distinct"
-msgstr "deutlich"
-
-#: geomat/stein/models.py:53 geomat/stein/models.py:144
-msgid "indistinct"
-msgstr "undeutlich"
-
-#: geomat/stein/models.py:54 geomat/stein/models.py:145
-msgid "none"
-msgstr "keine"
-
-#: geomat/stein/models.py:56
+#: geomat_content/models.py:15
 msgid "adamantine lustre"
 msgstr "Diamantglanz"
 
-#: geomat/stein/models.py:57
+#: geomat_content/models.py:16
 msgid "dull lustre"
 msgstr "Mattglanz"
 
-#: geomat/stein/models.py:58
+#: geomat_content/models.py:17
 msgid "greasy lustre"
 msgstr "Fettglanz"
 
-#: geomat/stein/models.py:59
+#: geomat_content/models.py:18
 msgid "metallic lustre"
 msgstr "Metallglanz"
 
-#: geomat/stein/models.py:60
+#: geomat_content/models.py:19
 msgid "pearly lustre"
 msgstr "Perlmuttglanz"
 
-#: geomat/stein/models.py:61
+#: geomat_content/models.py:20
 msgid "silky lustre"
 msgstr "Seidenglanz"
 
-#: geomat/stein/models.py:62
+#: geomat_content/models.py:21
 msgid "submetallic lustre"
 msgstr "Halbmetallglanz"
 
-#: geomat/stein/models.py:63
+#: geomat_content/models.py:22
 msgid "vitreous lustre"
 msgstr "Glasglanz"
 
-#: geomat/stein/models.py:64
+#: geomat_content/models.py:23
 msgid "waxy lustre"
 msgstr "Wachsglanz"
 
-#: geomat/stein/models.py:66
+#: geomat_content/models.py:26
 msgid "conchoidal"
 msgstr "muschelig"
 
-#: geomat/stein/models.py:67
+#: geomat_content/models.py:27
 msgid "earthy"
 msgstr "erdig"
 
-#: geomat/stein/models.py:68
+#: geomat_content/models.py:28
 msgid "hackly"
 msgstr "hakig"
 
-#: geomat/stein/models.py:69
+#: geomat_content/models.py:29
 msgid "splintery"
 msgstr "splitterig"
 
-#: geomat/stein/models.py:70
+#: geomat_content/models.py:30
 msgid "uneven"
 msgstr "uneben"
 
-#: geomat/stein/models.py:73
+#: geomat_content/models.py:34
 msgid "trivial name"
 msgstr "Trivialname"
 
-#: geomat/stein/models.py:78
-msgid "systematics"
-msgstr "Systematik"
-
-#: geomat/stein/models.py:83
-#| msgid "systematics"
-msgid "splitted systematics"
-msgstr "Split-Systematik"
-
-#: geomat/stein/models.py:88
-#| msgid "systematics"
-msgid "subsystematics"
-msgstr "Sub-Systematik"
-
-#: geomat/stein/models.py:91
+#: geomat_content/models.py:36
 msgid "variety"
 msgstr "Varietät"
 
-#: geomat/stein/models.py:93
+#: geomat_content/models.py:37
 msgid "minerals"
 msgstr "Mineralien"
 
-#: geomat/stein/models.py:94
+#: geomat_content/models.py:38
 msgid "mohs scale"
 msgstr "Mohshärte"
 
-#: geomat/stein/models.py:96
+#: geomat_content/models.py:39
 msgid "density"
 msgstr "Dichte"
 
-#: geomat/stein/models.py:97
+#: geomat_content/models.py:40
 msgid "streak"
 msgstr "Strichfarbe"
 
-#: geomat/stein/models.py:99
+#: geomat_content/models.py:41
 msgid "normal color"
 msgstr "Normalefarbe"
 
-#: geomat/stein/models.py:105
+#: geomat_content/models.py:45
 msgid "fracture"
 msgstr "Bruch"
 
-#: geomat/stein/models.py:111
+#: geomat_content/models.py:50
 msgid "lustre"
 msgstr "Glanz"
 
-#: geomat/stein/models.py:113
+#: geomat_content/models.py:53
 msgid "chemical formula"
 msgstr "Chemismus"
 
-#: geomat/stein/models.py:115
+#: geomat_content/models.py:55
 msgid "comment"
 msgstr "Kommentar"
 
-#: geomat/stein/models.py:117
+#: geomat_content/models.py:57
 msgid "MinDat ID"
 msgstr "MinDat ID"
 
-#: geomat/stein/models.py:119
+#: geomat_content/models.py:60
 msgid "MineralienAtlas ID"
 msgstr "MineralienAtlas ID"
 
-#: geomat/stein/models.py:121 geomat/stein/models.py:220
-#: geomat/stein/models.py:273
+#: geomat_content/models.py:62
 msgid "created at"
 msgstr "Erstellt am"
 
-#: geomat/stein/models.py:123 geomat/stein/models.py:222
-#: geomat/stein/models.py:275
+#: geomat_content/models.py:63
 msgid "last modified"
 msgstr "Zuletzt geändert"
 
-#: geomat/stein/models.py:126 geomat/stein/models.py:157
-#: geomat/stein/models.py:180 geomat/stein/models.py:210
+#: geomat_content/models.py:66 geomat_content/models.py:100
+#: geomat_content/models.py:126
 msgid "mineral type"
 msgstr "Mineralart"
 
-#: geomat/stein/models.py:127
+#: geomat_content/models.py:67
 msgid "mineral types"
 msgstr "Mineralarten"
 
-#: geomat/stein/models.py:148
+#: geomat_content/models.py:80
+msgid "perfect"
+msgstr "höchst vollkommen"
+
+#: geomat_content/models.py:81
+msgid "less perfect"
+msgstr "vollkommen"
+
+#: geomat_content/models.py:82
+msgid "good"
+msgstr "gut"
+
+#: geomat_content/models.py:83
+msgid "distinct"
+msgstr "deutlich"
+
+#: geomat_content/models.py:84
+msgid "indistinct"
+msgstr "undeutlich"
+
+#: geomat_content/models.py:85
+msgid "none"
+msgstr "keine"
+
+#: geomat_content/models.py:89
 msgid "cleavage"
 msgstr "Spaltbarkeit"
 
-#: geomat/stein/models.py:151
-#| msgid "Borates"
+#: geomat_content/models.py:93
 msgid "coordinates"
 msgstr "Borate"
 
-#: geomat/stein/models.py:168
+#: geomat_content/models.py:113
 msgid "Triclinic"
 msgstr "Triklin"
 
-#: geomat/stein/models.py:169
+#: geomat_content/models.py:114
 msgid "Monoclinic"
 msgstr "Monoklin"
 
-#: geomat/stein/models.py:170
+#: geomat_content/models.py:115
 msgid "Orthorhombic"
 msgstr "Orthorhombisch"
 
-#: geomat/stein/models.py:171
+#: geomat_content/models.py:116
 msgid "Tetragonal"
 msgstr "Tetragonal"
 
-#: geomat/stein/models.py:172
+#: geomat_content/models.py:117
 msgid "Trigonal"
 msgstr "Trigonal"
 
-#: geomat/stein/models.py:173
+#: geomat_content/models.py:118
 msgid "Hexagonal"
 msgstr "Hexagonal"
 
-#: geomat/stein/models.py:174
+#: geomat_content/models.py:119
 msgid "Cubic"
 msgstr "Kubisch"
 
-#: geomat/stein/models.py:175
+#: geomat_content/models.py:120
 msgid "Amorph"
 msgstr "Amorph"
 
-#: geomat/stein/models.py:187
+#: geomat_content/models.py:134
 msgid "crystal system"
 msgstr "Kristallsystem"
 
-#: geomat/stein/models.py:189
+#: geomat_content/models.py:137
 msgid "temperature"
 msgstr "Temperatur"
 
-#: geomat/stein/models.py:191
+#: geomat_content/models.py:139
 msgid "pressure"
 msgstr "Druck"
 
-#: geomat/stein/models.py:194
+#: geomat_content/models.py:142
 msgid "Crystal System"
 msgstr "Kristallsystem"
 
-#: geomat/stein/models.py:195
+#: geomat_content/models.py:143
 msgid "Crystal Systems"
 msgstr "Kristallsysteme"
 
-#: geomat/stein/models.py:208
-msgid "name of handpiece"
-msgstr "Name des Handstücks"
+#~ msgid "mineral type(s)"
+#~ msgstr "Mineralart"
 
-#: geomat/stein/models.py:214
-msgid "place of discovery"
-msgstr "Fundort"
+#~ msgid "question"
+#~ msgstr "Frage"
 
-#: geomat/stein/models.py:216
-msgid "current location"
-msgstr "Standort"
+#~ msgid "Elements"
+#~ msgstr "Elemente"
 
-#: geomat/stein/models.py:218
-msgid "old inventory number"
-msgstr "Alte Intentarnummer"
+#~ msgid "Sulfides & Sulfosalts"
+#~ msgstr "Sulfide und Sulfosalze"
 
-#: geomat/stein/models.py:225
-msgid "Handpiece"
-msgstr "Handstück"
+#~ msgid "Halogenides"
+#~ msgstr "Halogenide"
 
-#: geomat/stein/models.py:226
-msgid "Handpieces"
-msgstr "Handstücke"
+#~ msgid "Oxides and Hydroxides"
+#~ msgstr "Oxide und Hydroxide"
 
-#: geomat/stein/models.py:245
-msgid "Top"
-msgstr "Oben"
+#~ msgid "Carbonates and Nitrates"
+#~ msgstr "Carbonate und Nitrate"
 
-#: geomat/stein/models.py:246
-msgid "Bottom"
-msgstr "Unten"
+#~ msgid "Borates"
+#~ msgstr "Borate"
 
-#: geomat/stein/models.py:247
-msgid "Side"
-msgstr "Seitlich"
+#~ msgid "Sulfates"
+#~ msgstr "Sulfate"
 
-#: geomat/stein/models.py:249
-msgid "Micro"
-msgstr "Mikro"
+#~ msgid "Phosphates, Arsenates & Vanadates"
+#~ msgstr "Phosphate, Arsenate und Vanadate"
 
-#: geomat/stein/models.py:250
-msgid "Macro"
-msgstr "Makro"
+#~ msgid "Silicates & Germanates"
+#~ msgstr "Silikate und Germanate"
 
-#: geomat/stein/models.py:251
-msgid "Fisheye"
-msgstr "Fischauge"
+#~ msgid "Organic Compounds"
+#~ msgstr "Organische Verbindungen"
 
-#: geomat/stein/models.py:252
-msgid "Tele"
-msgstr "Tele"
+#~| msgid "Sulfates"
+#~ msgid "Sulfides"
+#~ msgstr "Sulfide"
 
-#: geomat/stein/models.py:267
-msgid "orientation"
-msgstr "Orientierung"
+#~| msgid "Sulfates"
+#~ msgid "Sulfosalts"
+#~ msgstr "Sulfosalze"
 
-#: geomat/stein/models.py:269
-msgid "shot type"
-msgstr "Aufnahmeart"
+#~| msgid "Carbonates and Nitrates"
+#~ msgid "Carbonates"
+#~ msgstr "Carbonate"
 
-#: geomat/stein/models.py:271
-msgid "active photograph?"
-msgstr "Aktiv?"
+#~| msgid "Borates"
+#~ msgid "Nitrates"
+#~ msgstr "Nitrate"
 
-#: geomat/stein/models.py:278
-msgid "Photograph"
-msgstr "Foto"
+#~ msgid "Phosphates"
+#~ msgstr "Phosphate"
 
-#: geomat/stein/models.py:279
-msgid "Photographs"
-msgstr "Fotos"
+#~| msgid "Borates"
+#~ msgid "Arsenates"
+#~ msgstr "Aresenate"
 
-#: geomat/stein/models.py:287
-#| msgid "Side"
-msgid "id"
-msgstr "id"
+#~ msgid "Vanadates"
+#~ msgstr "Vanadate"
 
-#: geomat/stein/models.py:289
-msgid "header"
-msgstr "Titel"
+#~| msgid "Sulfates"
+#~ msgid "Silicates"
+#~ msgstr "Silikate"
 
-#: geomat/stein/models.py:290
-msgid "description"
-msgstr "Beschreibung"
+#~| msgid "German"
+#~ msgid "Germanates"
+#~ msgstr "Germanate"
 
-#: geomat/stein/models.py:293
-msgid "Glossary Entry"
-msgstr "Glossareintrag"
+#~ msgid "Oxides"
+#~ msgstr "Oxide"
 
-#: geomat/stein/models.py:294
-msgid "Glossary Entries"
-msgstr "Glossareinträge"
+#~| msgid "Oxides and Hydroxides"
+#~ msgid "Hydroxides"
+#~ msgstr "Hydroxide"
 
-#: geomat/stein/models.py:304
-msgid "Single Choice"
-msgstr "Single Choice"
+#~ msgid "Island Silicates"
+#~ msgstr "Inselsilikate"
 
-#: geomat/stein/models.py:305
-msgid "Multiple Choice"
-msgstr "Multiple Choice"
+#~ msgid "Group Silicates"
+#~ msgstr "Gruppensilikate"
 
-#: geomat/stein/models.py:306
-msgid "Drag and Drop"
-msgstr "Drag and Drop"
+#~ msgid "Chain Silicates"
+#~ msgstr "Kettensilikate"
 
-#: geomat/stein/models.py:307
-msgid "Ranking"
-msgstr "Ranking"
+#~ msgid "Double Chain Silicates"
+#~ msgstr "Doppelkettensilikate"
 
-#: geomat/stein/models.py:308
-msgid "Hotspot"
-msgstr "Hotspot"
+#~ msgid "Cyclo Silicates"
+#~ msgstr "Ringsilikate"
 
-#: geomat/stein/models.py:312
-msgid "question text"
-msgstr "Fragentext"
+#~ msgid "Phyllo Silicates"
+#~ msgstr "Schichtsilikate"
 
-#: geomat/stein/models.py:317
-#| msgid "shot type"
-msgid "question type"
-msgstr "Fragetyp"
+#~ msgid "Framework Silicates"
+#~ msgstr "Gerüstsilikate"
 
-#: geomat/stein/models.py:324
-msgid "difficulty"
-msgstr "Schwierigkeitsgrad"
+#~ msgid "systematics"
+#~ msgstr "Systematik"
 
-#: geomat/stein/models.py:333
-msgid "answer text"
-msgstr "Antworttext"
+#~| msgid "systematics"
+#~ msgid "splitted systematics"
+#~ msgstr "Split-Systematik"
 
-#: geomat/stein/models.py:335
-msgid "correct"
-msgstr "richtig"
+#~| msgid "systematics"
+#~ msgid "subsystematics"
+#~ msgstr "Sub-Systematik"
 
-#: geomat/stein/models.py:340
-msgid "feedback if answered correctly"
-msgstr "Feedback falls richtig"
+#~ msgid "name of handpiece"
+#~ msgstr "Name des Handstücks"
 
-#: geomat/stein/models.py:345
-msgid "feedback if answered incorrectly"
-msgstr "Feedback falls falsch"
+#~ msgid "place of discovery"
+#~ msgstr "Fundort"
 
-#: geomat/users/models.py:15
-msgid "Name of User"
-msgstr "Name des Nutzers"
+#~ msgid "current location"
+#~ msgstr "Standort"
+
+#~ msgid "old inventory number"
+#~ msgstr "Alte Intentarnummer"
+
+#~ msgid "Handpiece"
+#~ msgstr "Handstück"
+
+#~ msgid "Handpieces"
+#~ msgstr "Handstücke"
+
+#~ msgid "Top"
+#~ msgstr "Oben"
+
+#~ msgid "Bottom"
+#~ msgstr "Unten"
+
+#~ msgid "Side"
+#~ msgstr "Seitlich"
+
+#~ msgid "Micro"
+#~ msgstr "Mikro"
+
+#~ msgid "Macro"
+#~ msgstr "Makro"
+
+#~ msgid "Fisheye"
+#~ msgstr "Fischauge"
+
+#~ msgid "Tele"
+#~ msgstr "Tele"
+
+#~ msgid "orientation"
+#~ msgstr "Orientierung"
+
+#~ msgid "shot type"
+#~ msgstr "Aufnahmeart"
+
+#~ msgid "active photograph?"
+#~ msgstr "Aktiv?"
+
+#~ msgid "Photograph"
+#~ msgstr "Foto"
+
+#~ msgid "Photographs"
+#~ msgstr "Fotos"
+
+#~| msgid "Side"
+#~ msgid "id"
+#~ msgstr "id"
+
+#~ msgid "header"
+#~ msgstr "Titel"
+
+#~ msgid "description"
+#~ msgstr "Beschreibung"
+
+#~ msgid "Glossary Entry"
+#~ msgstr "Glossareintrag"
+
+#~ msgid "Glossary Entries"
+#~ msgstr "Glossareinträge"
+
+#~ msgid "Single Choice"
+#~ msgstr "Single Choice"
+
+#~ msgid "Multiple Choice"
+#~ msgstr "Multiple Choice"
+
+#~ msgid "Drag and Drop"
+#~ msgstr "Drag and Drop"
+
+#~ msgid "Ranking"
+#~ msgstr "Ranking"
+
+#~ msgid "Hotspot"
+#~ msgstr "Hotspot"
+
+#~ msgid "question text"
+#~ msgstr "Fragentext"
+
+#~| msgid "shot type"
+#~ msgid "question type"
+#~ msgstr "Fragetyp"
+
+#~ msgid "difficulty"
+#~ msgstr "Schwierigkeitsgrad"
+
+#~ msgid "answer text"
+#~ msgstr "Antworttext"
+
+#~ msgid "correct"
+#~ msgstr "richtig"
+
+#~ msgid "feedback if answered correctly"
+#~ msgstr "Feedback falls richtig"
+
+#~ msgid "feedback if answered incorrectly"
+#~ msgstr "Feedback falls falsch"
+
+#~ msgid "Name of User"
+#~ msgstr "Name des Nutzers"
 
 #~ msgid "classification"
 #~ msgstr "Klassifikation"
