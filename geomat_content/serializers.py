@@ -14,7 +14,7 @@ class VerboseLabelField:
 
     def bind(self, field_name, parent):
         super(VerboseLabelField, self).bind(field_name, parent)
-        self.label = self.parent.Meta.model._meta.get_field(self.field_name).verbose_name
+        self.label = str(self.parent.Meta.model._meta.get_field(self.field_name).verbose_name)
 
 
 @extend_schema_field({"type": "mdstring"})
@@ -118,11 +118,13 @@ class MiscellaneousSerializer(serializers.ModelSerializer):
 
 class MineralTypeSerializer(serializers.ModelSerializer):
     systematics = SystematicsField(label=_("systematics"))
-    chemical_formula = MdStringField()
     crystal_system = CrystalSystemField()
     media_objects = MediaObjectSerializer(many=True)
     property = PropertySerializer()
     miscellaneous = MiscellaneousSerializer()
+
+    chemical_formula = MdStringField()
+    normal_color = ColStringField()
 
     class Meta:
         model = MineralType
@@ -132,9 +134,3 @@ class MineralTypeSerializer(serializers.ModelSerializer):
         ]
 
         depth = 2
-
-    def get_systematics(self, obj):
-        systematic = obj.tree_node
-        if systematic:
-            return systematic.name
-        return None

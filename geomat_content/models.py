@@ -77,7 +77,7 @@ class Property(models.Model):
         verbose_name=_("fracture"),
     )
     lustre = ArrayField(
-        models.CharField(max_length=2, choices=LUSTRE_CHOICES,),
+        models.CharField(max_length=2, choices=LUSTRE_CHOICES, verbose_name=_("lustre")),
         null=True,
         verbose_name=_("lustre"),
     )
