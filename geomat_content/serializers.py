@@ -2,7 +2,7 @@ from rest_framework import serializers
 from drf_yasg.utils import swagger_serializer_method
 from solid_backend.photograph.serializers import PhotographSerializer
 
-from .models import Cleavage, CrystalSystem, MineralType
+from .models import Cleavage, CrystalSystem, MineralType, Property, Miscellaneous
 
 
 class MdStringField(serializers.CharField):
@@ -54,29 +54,19 @@ class CrystalSystemSerializer(serializers.ModelSerializer):
                   'pressure')
 
 
-class MineralTypeSerializer(serializers.ModelSerializer):
-    systematics = serializers.SerializerMethodField()
+class PropertySerializer(serializers.ModelSerializer):
+
     fracture = serializers.SerializerMethodField()
     lustre = serializers.SerializerMethodField()
     density = serializers.SerializerMethodField()
     mohs_scale = serializers.SerializerMethodField()
-    crystal_system = CrystalSystemSerializer(many=True)
     cleavage = CleavageSerializer(many=True)
-    photographs = PhotographSerializer(many=True)
-
-    chemical_formula = MdStringField()
     normal_color = ColStringField()
-    
+
     class Meta:
-        model = MineralType
+        model = Property
         fields = '__all__'
         depth = 2
-
-    def get_systematics(self, obj):
-        systematic = obj.tree_node
-        if systematic:
-            return systematic.name
-        return None
 
     @swagger_serializer_method(serializer_or_field=serializers.ListField)
     def get_fracture(self, obj):
@@ -105,3 +95,32 @@ class MineralTypeSerializer(serializers.ModelSerializer):
         if float(obj.mohs_scale.upper) == float(obj.mohs_scale.lower) + 0.001:
             return "{}".format(obj.mohs_scale.lower).replace(".", ",")
         return "{0} - {1}".format(obj.mohs_scale.lower, obj.mohs_scale.upper).replace(".", ",")
+
+
+class MiscellaneousSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Miscellaneous
+        fields = "__all__"
+
+
+class MineralTypeSerializer(serializers.ModelSerializer):
+    systematics = serializers.SerializerMethodField()
+    chemical_formula = MdStringField()
+    crystal_system = CrystalSystemSerializer(many=True)
+    photographs = PhotographSerializer(many=True)
+    property = PropertySerializer()
+    miscellaneous = MiscellaneousSerializer()
+
+    
+    class Meta:
+        model = MineralType
+        fields = ["systematics", "name", "variety", "trivial_name", "chemical_formula", "crystal_system", "property", "miscellaneous", "photographs"]
+
+        depth = 2
+
+    def get_systematics(self, obj):
+        systematic = obj.tree_node
+        if systematic:
+            return systematic.name
+        return None

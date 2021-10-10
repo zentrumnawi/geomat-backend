@@ -71,8 +71,6 @@ class Cleavage(models.Model):
     )
 
 
-
-
 class Property(models.Model):
     FRACTURE_CHOICES = (
         ("CF", _("conchoidal")),
