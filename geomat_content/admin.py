@@ -38,7 +38,7 @@ class MineralTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'variety',
                     'trivial_name', 'created_at', 'last_modified',
                     'id')
-    inlines = [CrystalSystemInline, MiscellaneousInline, PropertyInline, CleavageInline, PhotographInline]
+    inlines = [CrystalSystemInline, MiscellaneousInline, PropertyInline, PhotographInline]
 
 
 admin.site.register(MineralType, MineralTypeAdmin)
@@ -53,7 +53,7 @@ admin.site.register(CrystalSystem, CrystallSystemAdmin)
 
 
 class CleavageAdmin(admin.ModelAdmin):
-    list_display = ("cleavage", "coordinates", "mineral_type")
+    list_display = ("cleavage", "coordinates", "property")
 
 
 admin.site.register(Cleavage, CleavageAdmin)
