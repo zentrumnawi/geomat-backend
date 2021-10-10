@@ -2,19 +2,27 @@ from django.contrib import admin
 from django import forms
 from solid_backend.photograph.admin import PhotographInline
 
-from .models import MineralType, Cleavage, CrystalSystem
+from .models import MineralType, Cleavage, CrystalSystem, Property, Miscellaneous
 
 # Register your models here.
 
 
-class MineraltypeModelForm(forms.ModelForm):
+class PropertyModelForm(forms.ModelForm):
 
-    fracture = forms.MultipleChoiceField(choices=MineralType.FRACTURE_CHOICES)
-    lustre = forms.MultipleChoiceField(choices=MineralType.LUSTRE_CHOICES)
-
+    fracture = forms.MultipleChoiceField(choices=Property.FRACTURE_CHOICES)
+    lustre = forms.MultipleChoiceField(choices=Property.LUSTRE_CHOICES)
     class Meta:
-        model = MineralType
+        model = Property
         fields = "__all__"
+
+
+class PropertyInline(admin.StackedInline):
+    model = Property
+    form = PropertyModelForm
+
+
+class MiscellaneousInline(admin.StackedInline):
+    model = Miscellaneous
 
 
 class CrystalSystemInline(admin.TabularInline):
@@ -30,8 +38,7 @@ class MineralTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'variety',
                     'trivial_name', 'created_at', 'last_modified',
                     'id')
-    form = MineraltypeModelForm
-    inlines = [CrystalSystemInline, CleavageInline, PhotographInline]
+    inlines = [CrystalSystemInline, MiscellaneousInline, PropertyInline, CleavageInline, PhotographInline]
 
 
 admin.site.register(MineralType, MineralTypeAdmin)

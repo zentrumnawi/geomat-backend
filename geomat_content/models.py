@@ -71,49 +71,6 @@ class MineralType(BaseProfile):
         return self.trivial_name
 
 
-class Property(models.Model):
-    FRACTURE_CHOICES = (
-        ("CF", _("conchoidal")),
-        ("EF", _("earthy")),
-        ("HF", _("hackly")),
-        ("SF", _("splintery")),
-        ("UF", _("uneven")),
-    )
-
-    LUSTRE_CHOICES = (
-        ("AM", _("adamantine lustre")),
-        ("DL", _("dull lustre")),
-        ("GR", _("greasy lustre")),
-        ("MT", _("metallic lustre")),
-        ("PY", _("pearly lustre")),
-        ("SL", _("silky lustre")),
-        ("SM", _("submetallic lustre")),
-        ("VT", _("vitreous lustre")),
-        ("WY", _("waxy lustre")),
-    )
-
-    density = DecimalRangeField(null=True, blank=True)
-    fracture = ArrayField(
-        models.CharField(max_length=2, choices=FRACTURE_CHOICES,),
-        null=True,
-        verbose_name=_("fracture"),
-    )
-    lustre = ArrayField(
-        models.CharField(max_length=2, choices=LUSTRE_CHOICES,),
-        null=True,
-        verbose_name=_("lustre"),
-    )
-    mohs_scale = DecimalRangeField(null=True, blank=True)
-    streak = models.CharField(max_length=100, verbose_name=_("streak"))
-    normal_color = models.CharField(max_length=100, verbose_name=_("normal color"))
-    mineral_type = models.OneToOneField(
-        MineralType,
-        verbose_name=_("mineral type"),
-        related_name="property",
-        on_delete=models.CASCADE
-    )
-
-
 class Miscellaneous(models.Model):
     other = models.TextField(max_length=500, blank=True, verbose_name=_("comment"))
     resource_mindat = models.CharField(
@@ -162,13 +119,54 @@ class Cleavage(models.Model):
         on_delete=models.CASCADE,
     )
 
-    property = models.ForeignKey(
-        Property,
+
+class Property(models.Model):
+    FRACTURE_CHOICES = (
+        ("CF", _("conchoidal")),
+        ("EF", _("earthy")),
+        ("HF", _("hackly")),
+        ("SF", _("splintery")),
+        ("UF", _("uneven")),
+    )
+
+    LUSTRE_CHOICES = (
+        ("AM", _("adamantine lustre")),
+        ("DL", _("dull lustre")),
+        ("GR", _("greasy lustre")),
+        ("MT", _("metallic lustre")),
+        ("PY", _("pearly lustre")),
+        ("SL", _("silky lustre")),
+        ("SM", _("submetallic lustre")),
+        ("VT", _("vitreous lustre")),
+        ("WY", _("waxy lustre")),
+    )
+
+    density = DecimalRangeField(null=True, blank=True)
+    fracture = ArrayField(
+        models.CharField(max_length=2, choices=FRACTURE_CHOICES,),
+        null=True,
+        verbose_name=_("fracture"),
+    )
+    lustre = ArrayField(
+        models.CharField(max_length=2, choices=LUSTRE_CHOICES,),
+        null=True,
+        verbose_name=_("lustre"),
+    )
+    mohs_scale = DecimalRangeField(null=True, blank=True)
+    streak = models.CharField(max_length=100, verbose_name=_("streak"))
+    normal_color = models.CharField(max_length=100, verbose_name=_("normal color"))
+    mineral_type = models.OneToOneField(
+        MineralType,
+        verbose_name=_("mineral type"),
+        related_name="property",
+        on_delete=models.CASCADE
+    )
+    cleavage = models.ManyToManyField(
+        Cleavage,
         blank=True,
         null=True,
-        verbose_name=_("mineral type"),
-        related_name="cleavage",
-        on_delete=models.CASCADE,
+        verbose_name=_("Cleavage"),
+        related_name="property",
     )
 
 
