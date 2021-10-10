@@ -30,11 +30,16 @@ class MineralType(BaseProfile):
         ("UF", _("uneven")),
     )
 
+    name = models.CharField(max_length=100, blank=True, verbose_name=_("minerals"))
+    variety = models.CharField(max_length=100, blank=True, verbose_name=_("variety"))
     trivial_name = models.CharField(
         max_length=100, blank=True, verbose_name=_("trivial name")
     )
-    variety = models.CharField(max_length=100, blank=True, verbose_name=_("variety"))
-    name = models.CharField(max_length=100, blank=True, verbose_name=_("minerals"))
+
+    chemical_formula = models.CharField(
+        max_length=100, verbose_name=_("chemical formula")
+    )
+
     mohs_scale = DecimalRangeField(null=True, blank=True)
     density = DecimalRangeField(null=True, blank=True)
     streak = models.CharField(max_length=100, verbose_name=_("streak"))
@@ -49,9 +54,6 @@ class MineralType(BaseProfile):
         null=True,
         verbose_name=_("lustre"),
     )
-    chemical_formula = models.CharField(
-        max_length=100, verbose_name=_("chemical formula")
-    )
     other = models.TextField(max_length=500, blank=True, verbose_name=_("comment"))
     resource_mindat = models.CharField(
         max_length=100, blank=True, verbose_name=_("MinDat ID")
@@ -61,13 +63,71 @@ class MineralType(BaseProfile):
     )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     last_modified = models.DateTimeField(auto_now=True, verbose_name=_("last modified"))
-
     class Meta:
         verbose_name = _("mineral type")
         verbose_name_plural = _("mineral types")
 
     def __str__(self):
         return self.trivial_name
+
+
+class Property(models.Model):
+    FRACTURE_CHOICES = (
+        ("CF", _("conchoidal")),
+        ("EF", _("earthy")),
+        ("HF", _("hackly")),
+        ("SF", _("splintery")),
+        ("UF", _("uneven")),
+    )
+
+    LUSTRE_CHOICES = (
+        ("AM", _("adamantine lustre")),
+        ("DL", _("dull lustre")),
+        ("GR", _("greasy lustre")),
+        ("MT", _("metallic lustre")),
+        ("PY", _("pearly lustre")),
+        ("SL", _("silky lustre")),
+        ("SM", _("submetallic lustre")),
+        ("VT", _("vitreous lustre")),
+        ("WY", _("waxy lustre")),
+    )
+
+    density = DecimalRangeField(null=True, blank=True)
+    fracture = ArrayField(
+        models.CharField(max_length=2, choices=FRACTURE_CHOICES,),
+        null=True,
+        verbose_name=_("fracture"),
+    )
+    lustre = ArrayField(
+        models.CharField(max_length=2, choices=LUSTRE_CHOICES,),
+        null=True,
+        verbose_name=_("lustre"),
+    )
+    mohs_scale = DecimalRangeField(null=True, blank=True)
+    streak = models.CharField(max_length=100, verbose_name=_("streak"))
+    normal_color = models.CharField(max_length=100, verbose_name=_("normal color"))
+    mineral_type = models.OneToOneField(
+        MineralType,
+        verbose_name=_("mineral type"),
+        related_name="property",
+        on_delete=models.CASCADE
+    )
+
+
+class Miscellaneous(models.Model):
+    other = models.TextField(max_length=500, blank=True, verbose_name=_("comment"))
+    resource_mindat = models.CharField(
+        max_length=100, blank=True, verbose_name=_("MinDat ID")
+    )
+    resource_mineralienatlas = models.CharField(
+        max_length=100, blank=True, verbose_name=_("MineralienAtlas ID")
+    )
+    mineral_type = models.OneToOneField(
+        MineralType,
+        verbose_name=_("mineral type"),
+        related_name="miscellaneous",
+        on_delete=models.CASCADE
+    )
 
 
 class Cleavage(models.Model):
@@ -95,6 +155,15 @@ class Cleavage(models.Model):
 
     mineral_type = models.ForeignKey(
         MineralType,
+        blank=True,
+        null=True,
+        verbose_name=_("mineral type"),
+        related_name="cleavage",
+        on_delete=models.CASCADE,
+    )
+
+    property = models.ForeignKey(
+        Property,
         blank=True,
         null=True,
         verbose_name=_("mineral type"),
