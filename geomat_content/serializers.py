@@ -2,7 +2,7 @@ from rest_framework import serializers
 from drf_yasg.utils import swagger_serializer_method
 from solid_backend.photograph.serializers import PhotographSerializer
 
-from .models import Cleavage, CrystalSystem, MineralType, Property, Miscellaneous
+from .models import CrystalSystem, MineralType, Property, Miscellaneous
 
 
 class MdStringField(serializers.CharField):
@@ -19,18 +19,6 @@ class ColStringField(serializers.CharField):
         swagger_schema_fields = {
             "type": "colstring"
         }
-
-
-class CleavageSerializer(serializers.ModelSerializer):
-
-    cleavage = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Cleavage
-        fields = ("cleavage", "coordinates")
-
-    def get_cleavage(self, obj):
-        return obj.get_cleavage_display()
 
 
 class CrystalSystemSerializer(serializers.ModelSerializer):
@@ -60,7 +48,6 @@ class PropertySerializer(serializers.ModelSerializer):
     lustre = serializers.SerializerMethodField()
     density = serializers.SerializerMethodField()
     mohs_scale = serializers.SerializerMethodField()
-    cleavage = CleavageSerializer(many=True)
     normal_color = ColStringField()
 
     class Meta:
