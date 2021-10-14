@@ -122,10 +122,12 @@ class CrystalSystem(models.Model):
         choices=CRYSTAL_SYSTEM_CHOICES,
         verbose_name=_("crystal system"),
     )
-    temperature = models.IntegerField(
-        blank=True, null=True, verbose_name=_("temperature")
+    temperature = models.CharField(
+        max_length=100, blank=True, null=True, verbose_name=_("temperature")
     )
-    pressure = models.IntegerField(blank=True, null=True, verbose_name=_("pressure"))
+    pressure = models.CharField(
+        max_length=100, blank=True, null=True, verbose_name=_("pressure")
+    )
 
     class Meta:
         verbose_name = _("Crystal System")

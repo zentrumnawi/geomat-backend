@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 
+
 def populate_cleavage_text(apps, schema_editor):
 
     Property = apps.get_model("geomat_content", "Property")
