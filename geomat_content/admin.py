@@ -2,7 +2,7 @@ from django.contrib import admin
 from django import forms
 from solid_backend.photograph.admin import PhotographInline
 
-from .models import MineralType, Cleavage, CrystalSystem, Property, Miscellaneous
+from .models import MineralType, CrystalSystem, Property, Miscellaneous
 
 # Register your models here.
 
@@ -29,9 +29,6 @@ class CrystalSystemInline(admin.TabularInline):
     model = CrystalSystem
 
 
-class CleavageInline(admin.TabularInline):
-    model = Cleavage
-
 
 class MineralTypeAdmin(admin.ModelAdmin):
 
@@ -50,10 +47,3 @@ class CrystallSystemAdmin(admin.ModelAdmin):
 
 
 admin.site.register(CrystalSystem, CrystallSystemAdmin)
-
-
-class CleavageAdmin(admin.ModelAdmin):
-    list_display = ("cleavage", "coordinates", "property")
-
-
-admin.site.register(Cleavage, CleavageAdmin)

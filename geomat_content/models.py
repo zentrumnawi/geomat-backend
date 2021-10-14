@@ -23,6 +23,7 @@ class MineralType(BaseProfile):
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     last_modified = models.DateTimeField(auto_now=True, verbose_name=_("last modified"))
+
     class Meta:
         verbose_name = _("mineral type")
         verbose_name_plural = _("mineral types")
@@ -44,30 +45,6 @@ class Miscellaneous(models.Model):
         verbose_name=_("mineral type"),
         related_name="miscellaneous",
         on_delete=models.CASCADE
-    )
-
-
-class Cleavage(models.Model):
-    """
-    Defines a Cleavage which should be used as a ForeignKey
-    inside the Mineraltype Class.
-    """
-
-    CLEAVAGE_CHOICES = (
-        ("PE", _("perfect")),
-        ("LP", _("less perfect")),
-        ("GO", _("good")),
-        ("DI", _("distinct")),
-        ("ID", _("indistinct")),
-        ("NO", _("none")),
-    )
-
-    cleavage = models.CharField(
-        max_length=2, choices=CLEAVAGE_CHOICES, verbose_name=_("cleavage")
-    )
-
-    coordinates = models.CharField(
-        max_length=100, default="", blank=True, verbose_name=_("coordinates")
     )
 
 
@@ -112,13 +89,7 @@ class Property(models.Model):
         related_name="property",
         on_delete=models.CASCADE
     )
-    cleavage = models.ManyToManyField(
-        Cleavage,
-        blank=True,
-        null=True,
-        verbose_name=_("Cleavage"),
-        related_name="property",
-    )
+    cleavage_text = models.TextField(null=True, verbose_name=_("Cleavages"))
 
 
 class CrystalSystem(models.Model):
