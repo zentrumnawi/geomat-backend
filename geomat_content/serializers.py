@@ -29,7 +29,12 @@ class CrystalSystemField(serializers.CharField):
     def to_representation(self, value):
         return_str = ""
         for system in value.all():
-            return_str += f"{system.get_crystal_system_display()} {system.temperature}, {system.pressure} \n"
+
+            return_str += f"{system.get_crystal_system_display()}"
+            if system.temperature:
+                return_str += system.temperature
+            if system.pressure:
+                return_str += f"{system.pressure} \n"
 
         return return_str
 
