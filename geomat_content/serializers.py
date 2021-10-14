@@ -21,26 +21,17 @@ class ColStringField(serializers.CharField):
         }
 
 
-class CrystalSystemSerializer(serializers.ModelSerializer):
+class CrystalSystemField(serializers.CharField):
     """
     This Serializer is used to represent a Version without the full mineraltype
     """
 
-    crystal_system = serializers.SerializerMethodField()
+    def to_representation(self, value):
+        return_str = ""
+        for system in value.all():
+            return_str += f"{system.get_crystal_system_display()} {system.temperature}, {system.pressure} \n"
 
-    def get_crystal_system(self, obj):
-        choice_dict = dict(obj.CRYSTAL_SYSTEM_CHOICES)
-        key = obj.crystal_system
-        if key:
-            return choice_dict[key]
-
-        return key
-
-    class Meta:
-        model = CrystalSystem
-        fields = ('id', 'mineral_type', 'crystal_system', 'temperature',
-                  'pressure')
-
+        return return_str
 
 class PropertySerializer(serializers.ModelSerializer):
 
@@ -94,7 +85,7 @@ class MiscellaneousSerializer(serializers.ModelSerializer):
 class MineralTypeSerializer(serializers.ModelSerializer):
     systematics = serializers.SerializerMethodField()
     chemical_formula = MdStringField()
-    crystal_system = CrystalSystemSerializer(many=True)
+    crystal_system = CrystalSystemField()
     photographs = PhotographSerializer(many=True)
     property = PropertySerializer()
     miscellaneous = MiscellaneousSerializer()
