@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     "solid_backend.slideshow",
     "solid_backend.quiz",
     "solid_backend.photograph",
+    "solid_backend.media_object",
     "rest_framework",
     "corsheaders",
     "mptt",
     "drf_yasg",
+    "taggit",
     "django_cleanup.apps.CleanupConfig",
 ]
 
