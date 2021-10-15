@@ -38,6 +38,7 @@ class CrystalSystemField(serializers.CharField):
 
         return return_str
 
+
 class PropertySerializer(serializers.ModelSerializer):
 
     fracture = serializers.SerializerMethodField()
@@ -48,8 +49,7 @@ class PropertySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Property
-        fields = '__all__'
-        depth = 2
+        exclude = ["mineral_type", ]
 
     @swagger_serializer_method(serializer_or_field=serializers.ListField)
     def get_fracture(self, obj):
@@ -84,7 +84,7 @@ class MiscellaneousSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Miscellaneous
-        fields = "__all__"
+        exclude = ["mineral_type", ]
 
 
 class MineralTypeSerializer(serializers.ModelSerializer):
