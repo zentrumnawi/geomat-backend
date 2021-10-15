@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from solid_backend.photograph.admin import PhotographInline
+from solid_backend.media_object.admin import AudioVideoMediaObjectInline, ImageMediaObjectInline
 
 from .models import MineralType, CrystalSystem, Property, Miscellaneous
 
@@ -11,6 +11,7 @@ class PropertyModelForm(forms.ModelForm):
 
     fracture = forms.MultipleChoiceField(choices=Property.FRACTURE_CHOICES)
     lustre = forms.MultipleChoiceField(choices=Property.LUSTRE_CHOICES)
+
     class Meta:
         model = Property
         fields = "__all__"
@@ -29,13 +30,18 @@ class CrystalSystemInline(admin.TabularInline):
     model = CrystalSystem
 
 
-
 class MineralTypeAdmin(admin.ModelAdmin):
 
     list_display = ('name', 'variety',
                     'trivial_name', 'created_at', 'last_modified',
                     'id')
-    inlines = [CrystalSystemInline, MiscellaneousInline, PropertyInline, PhotographInline]
+    inlines = [
+        CrystalSystemInline,
+        MiscellaneousInline,
+        PropertyInline,
+        ImageMediaObjectInline,
+        AudioVideoMediaObjectInline
+    ]
 
 
 admin.site.register(MineralType, MineralTypeAdmin)

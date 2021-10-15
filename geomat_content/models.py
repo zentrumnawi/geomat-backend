@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from solid_backend.content.models import BaseProfile, SolidBaseProfile, TreeNode
 
 
-class MineralType(BaseProfile, SolidBaseProfile):
+class MineralType(SolidBaseProfile):
     """
     Defines the mineral type model.
     """
