@@ -52,4 +52,15 @@ class CrystallSystemAdmin(admin.ModelAdmin):
                     'pressure')
 
 
+class PropertyAdmin(admin.ModelAdmin):
+    list_display = ('mineral_type',)
+    form = PropertyModelForm
+
+
+class MiscellaneousAdmin(admin.ModelAdmin):
+    list_display = ('mineral_type', 'resource_mindat', 'resource_mineralienatlas')
+
+
 admin.site.register(CrystalSystem, CrystallSystemAdmin)
+admin.site.register(Property, PropertyAdmin)
+admin.site.register(Miscellaneous, MiscellaneousAdmin)
