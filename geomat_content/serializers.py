@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from drf_yasg.utils import swagger_serializer_method
-from solid_backend.photograph.serializers import PhotographSerializer
+from solid_backend.media_object.serializers import MediaObjectSerializer
 
-from .models import CrystalSystem, MineralType, Property, Miscellaneous
+from .models import MineralType, Property, Miscellaneous
 
 
 class MdStringField(serializers.CharField):
@@ -91,14 +91,16 @@ class MineralTypeSerializer(serializers.ModelSerializer):
     systematics = serializers.SerializerMethodField()
     chemical_formula = MdStringField()
     crystal_system = CrystalSystemField()
-    photographs = PhotographSerializer(many=True)
+    media_objects = MediaObjectSerializer(many=True)
     property = PropertySerializer()
     miscellaneous = MiscellaneousSerializer()
 
-    
     class Meta:
         model = MineralType
-        fields = ["systematics", "name", "variety", "trivial_name", "chemical_formula", "crystal_system", "property", "miscellaneous", "photographs"]
+        fields = [
+            "systematics", "name", "variety", "trivial_name", "chemical_formula",
+            "crystal_system", "property", "miscellaneous", "media_objects"
+        ]
 
         depth = 2
 
