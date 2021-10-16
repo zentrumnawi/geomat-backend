@@ -98,8 +98,8 @@ class MineralTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = MineralType
         fields = [
-            "systematics", "name", "variety", "trivial_name", "chemical_formula",
-            "crystal_system", "property", "miscellaneous", "media_objects"
+            "id", "systematics", "name", "variety", "trivial_name", "chemical_formula",
+            "crystal_system", "property", "miscellaneous", "media_objects", "tree_node"
         ]
 
         depth = 2
