@@ -13,6 +13,18 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.AlterField(
+            model_name='mineraltype',
+            name='density',
+            field=django.contrib.postgres.fields.ranges.DecimalRangeField(blank=True, null=True,
+                                                                          verbose_name='density'),
+        ),
+        migrations.AlterField(
+            model_name='mineraltype',
+            name='mohs_scale',
+            field=django.contrib.postgres.fields.ranges.DecimalRangeField(blank=True, null=True,
+                                                                          verbose_name='mohs scale'),
+        ),
         migrations.CreateModel(
             name='Property',
             fields=[
