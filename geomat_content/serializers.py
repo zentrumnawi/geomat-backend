@@ -1,88 +1,139 @@
 from rest_framework import serializers
-from drf_yasg.utils import swagger_serializer_method
+from solid_backend.media_object.serializers import MediaObjectSerializer
+from django.utils.translation import ugettext_lazy as _
 from solid_backend.photograph.serializers import PhotographSerializer
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema_field, extend_schema_serializer
+from drf_yasg import openapi
 
-from .models import Cleavage, CrystalSystem, MineralType
+
+from .models import MineralType, Property, Miscellaneous
+from drf_spectacular.utils import extend_schema_field
+from .models import CrystalSystem, MineralType
 
 
-class CleavageSerializer(serializers.ModelSerializer):
+class VerboseLabelField(serializers.Field):
 
-    cleavage = serializers.SerializerMethodField()
+    def bind(self, field_name, parent):
+        super(VerboseLabelField, self).bind(field_name, parent)
+        self.label = str(self.parent.Meta.model._meta.get_field(self.field_name).verbose_name)
+
+
+@extend_schema_field({"type": "mdstring"})
+class MdStringField(VerboseLabelField, serializers.CharField):
 
     class Meta:
-        model = Cleavage
-        fields = ("cleavage", "coordinates")
-
-    def get_cleavage(self, obj):
-        return obj.get_cleavage_display()
+        swagger_schema_fields = {
+            "type": "mdstring"
+        }
 
 
-class CrystalSystemSerializer(serializers.ModelSerializer):
+
+@extend_schema_field({"type": "colstring"})
+class ColStringField(VerboseLabelField, serializers.CharField):
+    pass
+
+
+class CrystalSystemField(serializers.CharField):
     """
     This Serializer is used to represent a Version without the full mineraltype
     """
 
-    crystal_system = serializers.SerializerMethodField()
+    def bind(self, field_name, parent):
+        super(CrystalSystemField, self).bind(field_name, parent)
+        self.label = _("Crystal Systems")
 
-    def get_crystal_system(self, obj):
-        choice_dict = dict(obj.CRYSTAL_SYSTEM_CHOICES)
-        key = obj.crystal_system
-        if key:
-            return choice_dict[key]
+    def to_representation(self, value):
+        return_str = ""
+        for system in value.all():
 
-        return key
+            return_str += f"{system.get_crystal_system_display()}"
+            if system.temperature:
+                return_str += system.temperature
+            if system.pressure:
+                return_str += f"{system.pressure} \n"
+
+        return return_str
+
+
+@extend_schema_field({"type": "array", "items": {"type": "string"}})
+class ListVerboseField(VerboseLabelField):
+
+    def __init__(self, choice_dict, **kwargs):
+        super(ListVerboseField, self).__init__()
+        self.choice_dict = dict(choice_dict)
+
+    # def bind(self, field_name, parent):
+    #     super(ListVerboseField, self).bind(field_name, parent)
+    #     self.label = str(self.parent.Meta.model._meta.get_field(self.field_name).verbose_name)
+
+    def to_representation(self, value):
+        lst = []
+        if value:
+            lst = [self.choice_dict.get(choice) for choice in value]
+        return lst
 
     class Meta:
-        model = CrystalSystem
-        fields = ('id', 'mineral_type', 'crystal_system', 'temperature',
-                  'pressure')
+        swagger_schema_fields = {
+            "type": openapi.TYPE_ARRAY,
+            "items": {
+                "type": openapi.TYPE_STRING,
+            },
+        }
+
+
+class RangeOrSingleNumberField(VerboseLabelField):
+
+    def to_representation(self, value):
+        if float(value.upper) == float(value.lower) + 0.001:
+            return "{}".format(value.lower).replace(".", ",")
+        return "{0} - {1}".format(value.lower, value.upper).replace(".", ",")
+
+
+class SystematicsField(VerboseLabelField, serializers.CharField):
+
+    def to_representation(self, value):
+        if value:
+            return value.name
+        return None
+
+
+class PropertySerializer(serializers.ModelSerializer):
+
+    fracture = ListVerboseField(Property.FRACTURE_CHOICES)
+    lustre = ListVerboseField(Property.LUSTRE_CHOICES)
+    density = RangeOrSingleNumberField()
+    mohs_scale = RangeOrSingleNumberField()
+    normal_color = ColStringField()
+
+    class Meta:
+        model = Property
+        exclude = ["mineral_type", ]
+        swagger_schema_fields = {"title": str(model._meta.verbose_name)}
+
+
+class MiscellaneousSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Miscellaneous
+        exclude = ["mineral_type", ]
+        swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
 class MineralTypeSerializer(serializers.ModelSerializer):
-    systematics = serializers.SerializerMethodField()
-    fracture = serializers.SerializerMethodField()
-    lustre = serializers.SerializerMethodField()
-    density = serializers.SerializerMethodField()
-    mohs_scale = serializers.SerializerMethodField()
-    crystal_system = CrystalSystemSerializer(many=True)
-    cleavage = CleavageSerializer(many=True)
-    photographs = PhotographSerializer(many=True)
+    tree_node = SystematicsField(label=_("systematics"))
+    crystal_system = CrystalSystemField()
+    media_objects = MediaObjectSerializer(many=True)
+    property = PropertySerializer()
+    miscellaneous = MiscellaneousSerializer()
+
+    chemical_formula = MdStringField()
 
     class Meta:
         model = MineralType
-        fields = '__all__'
+        fields = [
+            "id", "tree_node", "name", "variety", "trivial_name", "chemical_formula",
+            "crystal_system", "property", "miscellaneous", "media_objects", "tree_node"
+        ]
+
         depth = 2
-
-    def get_systematics(self, obj):
-        systematic = obj.systematics
-        if systematic:
-            return systematic.node_name
-        return None
-
-    @swagger_serializer_method(serializer_or_field=serializers.ListField)
-    def get_fracture(self, obj):
-        lst = []
-        choice_dict = dict(obj.FRACTURE_CHOICES)
-        fracture = obj.fracture
-        if fracture:
-            lst = [choice_dict.get(choice) for choice in fracture]
-        return lst
-
-    @swagger_serializer_method(serializer_or_field=serializers.ListField)
-    def get_lustre(self, obj):
-        lst = []
-        choice_dict = dict(obj.LUSTRE_CHOICES)
-        lustre = obj.lustre
-        if lustre:
-            lst = [choice_dict.get(choice) for choice in lustre]
-        return lst
-
-    def get_density(self, obj):
-        if float(obj.density.upper) == float(obj.density.lower) + 0.001:
-            return "{}".format(obj.density.lower).replace(".", ",")
-        return "{0} - {1}".format(obj.density.lower, obj.density.upper).replace(".", ",")
-
-    def get_mohs_scale(self, obj):
-        if float(obj.mohs_scale.upper) == float(obj.mohs_scale.lower) + 0.001:
-            return "{}".format(obj.mohs_scale.lower).replace(".", ",")
-        return "{0} - {1}".format(obj.mohs_scale.lower, obj.mohs_scale.upper).replace(".", ",")

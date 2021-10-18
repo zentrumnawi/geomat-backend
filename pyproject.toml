@@ -19,6 +19,7 @@ drf_yasg = "^1.17.1"
 django-cors-headers = "^3.4.0"
 django-mptt = "^0.11.0"
 django-cleanup = "^4.0.0"
+drf-spectacular = "^0.18.1"
 
 
 [tool.poetry.dev-dependencies]

@@ -38,10 +38,13 @@ INSTALLED_APPS = [
     "solid_backend.slideshow",
     "solid_backend.quiz",
     "solid_backend.photograph",
+    "solid_backend.media_object",
     "rest_framework",
     "corsheaders",
     "mptt",
     "drf_yasg",
+    "taggit",
+    "drf_spectacular",
     "django_cleanup.apps.CleanupConfig",
 ]
 
@@ -54,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.locale.LocaleMiddleware"
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -102,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "de-de"
 
 TIME_ZONE = "UTC"
 
@@ -134,11 +138,26 @@ LANGUAGES = [("de", _("German")), ("en", _("English"))]
 LOCALE_PATHS = [str(ROOT_DIR("locale"))]
 
 
-PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER = env(
+PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER_NAME = env(
     "PROFILES_SERIALIZER", default=""
 ).rsplit(".", 1)
 
 DATABASE_FIELD_MAPPING = {}
-CORS_ORIGIN_ALLOW_ALL = True
 
 URI_PREFIX = env("URI_PREFIX", default="")
+
+# CORS
+CORS_ORIGIN_ALLOW_ALL = True
+
+# Restframework
+REST_FRAMEWORK = {
+    # YOUR SETTINGS
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Geomat API',
+    'DESCRIPTION': "Backend for the e-learning application Geoamt.",
+    'VERSION': '1.0.0',
+    # OTHER SETTINGS
+}
