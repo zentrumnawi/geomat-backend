@@ -90,7 +90,6 @@ class PropertySerializer(serializers.ModelSerializer):
     density = serializers.SerializerMethodField()
     mohs_scale = serializers.SerializerMethodField()
     normal_color = ColStringField()
-    chemical_formula = MdStringField()
 
     class Meta:
         model = Property
@@ -117,19 +116,18 @@ class MiscellaneousSerializer(serializers.ModelSerializer):
 
 
 class MineralTypeSerializer(serializers.ModelSerializer):
-    systematics = SystematicsField(label=_("systematics"))
+    tree_node = SystematicsField(label=_("systematics"))
     crystal_system = CrystalSystemField()
     media_objects = MediaObjectSerializer(many=True)
     property = PropertySerializer()
     miscellaneous = MiscellaneousSerializer()
 
     chemical_formula = MdStringField()
-    normal_color = ColStringField()
 
     class Meta:
         model = MineralType
         fields = [
-            "id", "systematics", "name", "variety", "trivial_name", "chemical_formula",
+            "id", "tree_node", "name", "variety", "trivial_name", "chemical_formula",
             "crystal_system", "property", "miscellaneous", "media_objects", "tree_node"
         ]
 
