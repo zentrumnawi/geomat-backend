@@ -33,7 +33,7 @@ def populate_new_model(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('geomat_content', '0008_miscellaneous_property'),
+            ('geomat_content', '0008_miscellaneous_property'),
     ]
 
     operations = [

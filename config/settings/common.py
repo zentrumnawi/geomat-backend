@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "mptt",
     "drf_yasg",
     "taggit",
+    "drf_spectacular",
     "django_cleanup.apps.CleanupConfig",
 ]
 
@@ -56,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.locale.LocaleMiddleware"
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -146,3 +148,16 @@ URI_PREFIX = env("URI_PREFIX", default="")
 
 # CORS
 CORS_ORIGIN_ALLOW_ALL = True
+
+# Restframework
+REST_FRAMEWORK = {
+    # YOUR SETTINGS
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Geomat API',
+    'DESCRIPTION': "Backend for the e-learning application Geoamt.",
+    'VERSION': '1.0.0',
+    # OTHER SETTINGS
+}

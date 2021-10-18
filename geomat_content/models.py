@@ -48,6 +48,10 @@ class Miscellaneous(models.Model):
         on_delete=models.CASCADE
     )
 
+    class Meta:
+        verbose_name = _("Miscellaneous")
+        verbose_name_plural = _("Miscellaneous")
+
 
 class Property(models.Model):
     FRACTURE_CHOICES = (
@@ -70,18 +74,18 @@ class Property(models.Model):
         ("WY", _("waxy lustre")),
     )
 
-    density = DecimalRangeField(null=True, blank=True)
+    density = DecimalRangeField(null=True, blank=True, verbose_name=_("density"))
     fracture = ArrayField(
         models.CharField(max_length=2, choices=FRACTURE_CHOICES,),
         null=True,
         verbose_name=_("fracture"),
     )
     lustre = ArrayField(
-        models.CharField(max_length=2, choices=LUSTRE_CHOICES,),
+        models.CharField(max_length=2, choices=LUSTRE_CHOICES, verbose_name=_("lustre")),
         null=True,
         verbose_name=_("lustre"),
     )
-    mohs_scale = DecimalRangeField(null=True, blank=True)
+    mohs_scale = DecimalRangeField(null=True, blank=True, verbose_name=_("mohs scale"))
     normal_color = models.CharField(max_length=100, verbose_name=_("normal color"))
     streak = models.CharField(max_length=100, verbose_name=_("streak"))
     mineral_type = models.OneToOneField(
@@ -91,6 +95,10 @@ class Property(models.Model):
         on_delete=models.CASCADE
     )
     cleavage_text = models.TextField(null=True, verbose_name=_("Cleavages"))
+
+    class Meta:
+        verbose_name = _("Property")
+        verbose_name_plural = _("Properties")
 
 
 class CrystalSystem(models.Model):
