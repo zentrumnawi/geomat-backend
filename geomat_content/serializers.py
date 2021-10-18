@@ -34,6 +34,10 @@ class CrystalSystemField(serializers.CharField):
     This Serializer is used to represent a Version without the full mineraltype
     """
 
+    def bind(self, field_name, parent):
+        super(CrystalSystemField, self).bind(field_name, parent)
+        self.label = _("Crystal Systems")
+
     def to_representation(self, value):
         return_str = ""
         for system in value.all():
@@ -73,11 +77,7 @@ class ListVerboseField(VerboseLabelField):
         }
 
 
-class RangeOrSingleNumberField(VerboseLabelField, serializers.CharField):
-
-    def bind(self, field_name, parent):
-        super(RangeOrSingleNumberField, self).bind(field_name, parent)
-        self.label = self.parent.Meta.model._meta.get_field(self.field_name).verbose_name
+class RangeOrSingleNumberField(VerboseLabelField):
 
     def to_representation(self, value):
         if float(value.upper) == float(value.lower) + 0.001:
@@ -97,25 +97,14 @@ class PropertySerializer(serializers.ModelSerializer):
 
     fracture = ListVerboseField(Property.FRACTURE_CHOICES)
     lustre = ListVerboseField(Property.LUSTRE_CHOICES)
-    density = serializers.SerializerMethodField()
-    mohs_scale = serializers.SerializerMethodField()
+    density = RangeOrSingleNumberField()
+    mohs_scale = RangeOrSingleNumberField()
     normal_color = ColStringField()
 
     class Meta:
         model = Property
         exclude = ["mineral_type", ]
-
-    @extend_schema_field(OpenApiTypes.STR)
-    def get_density(self, obj):
-        if float(obj.density.upper) == float(obj.density.lower) + 0.001:
-            return "{}".format(obj.density.lower).replace(".", ",")
-        return "{0} - {1}".format(obj.density.lower, obj.density.upper).replace(".", ",")
-
-    @extend_schema_field(OpenApiTypes.STR)
-    def get_mohs_scale(self, obj):
-        if float(obj.mohs_scale.upper) == float(obj.mohs_scale.lower) + 0.001:
-            return "{}".format(obj.mohs_scale.lower).replace(".", ",")
-        return "{0} - {1}".format(obj.mohs_scale.lower, obj.mohs_scale.upper).replace(".", ",")
+        swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
 class MiscellaneousSerializer(serializers.ModelSerializer):
@@ -123,6 +112,7 @@ class MiscellaneousSerializer(serializers.ModelSerializer):
     class Meta:
         model = Miscellaneous
         exclude = ["mineral_type", ]
+        swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
 class MineralTypeSerializer(serializers.ModelSerializer):

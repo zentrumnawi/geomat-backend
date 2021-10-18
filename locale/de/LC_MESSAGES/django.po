@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-06 18:14+0200\n"
+"POT-Creation-Date: 2021-10-18 16:33+0200\n"
 "PO-Revision-Date: 2019-02-18 12:34+0053\n"
 "Last-Translator: b'  <>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,212 +19,188 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.9.1\n"
 
-#: config/settings/common.py:135
+#: config/settings/common.py:137
 msgid "German"
 msgstr "Deutsch"
 
-#: config/settings/common.py:135
+#: config/settings/common.py:137
 msgid "English"
 msgstr "Englisch"
 
-#: geomat_content/models.py:15
-msgid "adamantine lustre"
-msgstr "Diamantglanz"
-
-#: geomat_content/models.py:16
-msgid "dull lustre"
-msgstr "Mattglanz"
-
-#: geomat_content/models.py:17
-msgid "greasy lustre"
-msgstr "Fettglanz"
-
-#: geomat_content/models.py:18
-msgid "metallic lustre"
-msgstr "Metallglanz"
-
-#: geomat_content/models.py:19
-msgid "pearly lustre"
-msgstr "Perlmuttglanz"
-
-#: geomat_content/models.py:20
-msgid "silky lustre"
-msgstr "Seidenglanz"
-
-#: geomat_content/models.py:21
-msgid "submetallic lustre"
-msgstr "Halbmetallglanz"
-
-#: geomat_content/models.py:22
-msgid "vitreous lustre"
-msgstr "Glasglanz"
-
-#: geomat_content/models.py:23
-msgid "waxy lustre"
-msgstr "Wachsglanz"
-
-#: geomat_content/models.py:26
-msgid "conchoidal"
-msgstr "muschelig"
-
-#: geomat_content/models.py:27
-msgid "earthy"
-msgstr "erdig"
-
-#: geomat_content/models.py:28
-msgid "hackly"
-msgstr "hakig"
-
-#: geomat_content/models.py:29
-msgid "splintery"
-msgstr "splitterig"
-
-#: geomat_content/models.py:30
-msgid "uneven"
-msgstr "uneben"
-
-#: geomat_content/models.py:34
-msgid "trivial name"
-msgstr "Trivialname"
-
-#: geomat_content/models.py:36
-msgid "variety"
-msgstr "Varietät"
-
-#: geomat_content/models.py:37
+#: geomat_content/models.py:14
 msgid "minerals"
 msgstr "Mineralien"
 
-#: geomat_content/models.py:38
-msgid "mohs scale"
-msgstr "Mohshärte"
+#: geomat_content/models.py:15
+msgid "variety"
+msgstr "Varietät"
 
-#: geomat_content/models.py:39
-msgid "density"
-msgstr "Dichte"
+#: geomat_content/models.py:17
+msgid "trivial name"
+msgstr "Trivialname"
 
-#: geomat_content/models.py:40
-msgid "streak"
-msgstr "Strichfarbe"
-
-#: geomat_content/models.py:41
-msgid "normal color"
-msgstr "Normalefarbe"
-
-#: geomat_content/models.py:45
-msgid "fracture"
-msgstr "Bruch"
-
-#: geomat_content/models.py:50
-msgid "lustre"
-msgstr "Glanz"
-
-#: geomat_content/models.py:53
+#: geomat_content/models.py:21
 msgid "chemical formula"
 msgstr "Chemismus"
 
-#: geomat_content/models.py:55
-msgid "comment"
-msgstr "Kommentar"
-
-#: geomat_content/models.py:57
-msgid "MinDat ID"
-msgstr "MinDat ID"
-
-#: geomat_content/models.py:60
-msgid "MineralienAtlas ID"
-msgstr "MineralienAtlas ID"
-
-#: geomat_content/models.py:62
+#: geomat_content/models.py:24
 msgid "created at"
 msgstr "Erstellt am"
 
-#: geomat_content/models.py:63
+#: geomat_content/models.py:25
 msgid "last modified"
 msgstr "Zuletzt geändert"
 
-#: geomat_content/models.py:66 geomat_content/models.py:100
-#: geomat_content/models.py:126
+#: geomat_content/models.py:28 geomat_content/models.py:46
+#: geomat_content/models.py:93 geomat_content/models.py:124
 msgid "mineral type"
 msgstr "Mineralart"
 
-#: geomat_content/models.py:67
+#: geomat_content/models.py:29
 msgid "mineral types"
 msgstr "Mineralarten"
 
-#: geomat_content/models.py:80
-msgid "perfect"
-msgstr "höchst vollkommen"
+#: geomat_content/models.py:37
+msgid "comment"
+msgstr "Kommentar"
+
+#: geomat_content/models.py:39
+msgid "MinDat ID"
+msgstr "MinDat ID"
+
+#: geomat_content/models.py:42
+msgid "MineralienAtlas ID"
+msgstr "MineralienAtlas ID"
+
+#: geomat_content/models.py:52 geomat_content/models.py:53
+msgid "Miscellaneous"
+msgstr "Weiteres"
+
+#: geomat_content/models.py:58
+msgid "conchoidal"
+msgstr "muschelig"
+
+#: geomat_content/models.py:59
+msgid "earthy"
+msgstr "erdig"
+
+#: geomat_content/models.py:60
+msgid "hackly"
+msgstr "hakig"
+
+#: geomat_content/models.py:61
+msgid "splintery"
+msgstr "splitterig"
+
+#: geomat_content/models.py:62
+msgid "uneven"
+msgstr "uneben"
+
+#: geomat_content/models.py:66
+msgid "adamantine lustre"
+msgstr "Diamantglanz"
+
+#: geomat_content/models.py:67
+msgid "dull lustre"
+msgstr "Mattglanz"
+
+#: geomat_content/models.py:68
+msgid "greasy lustre"
+msgstr "Fettglanz"
+
+#: geomat_content/models.py:69
+msgid "metallic lustre"
+msgstr "Metallglanz"
+
+#: geomat_content/models.py:70
+msgid "pearly lustre"
+msgstr "Perlmuttglanz"
+
+#: geomat_content/models.py:71
+msgid "silky lustre"
+msgstr "Seidenglanz"
+
+#: geomat_content/models.py:72
+msgid "submetallic lustre"
+msgstr "Halbmetallglanz"
+
+#: geomat_content/models.py:73
+msgid "vitreous lustre"
+msgstr "Glasglanz"
+
+#: geomat_content/models.py:74
+msgid "waxy lustre"
+msgstr "Wachsglanz"
 
 #: geomat_content/models.py:81
-msgid "less perfect"
-msgstr "vollkommen"
+msgid "fracture"
+msgstr "Bruch"
 
-#: geomat_content/models.py:82
-msgid "good"
-msgstr "gut"
-
-#: geomat_content/models.py:83
-msgid "distinct"
-msgstr "deutlich"
-
-#: geomat_content/models.py:84
-msgid "indistinct"
-msgstr "undeutlich"
-
-#: geomat_content/models.py:85
-msgid "none"
-msgstr "keine"
+#: geomat_content/models.py:84 geomat_content/models.py:86
+msgid "lustre"
+msgstr "Glanz"
 
 #: geomat_content/models.py:89
-msgid "cleavage"
+msgid "normal color"
+msgstr "Normale Farbe"
+
+#: geomat_content/models.py:90
+msgid "streak"
+msgstr "Strichfarbe"
+
+#: geomat_content/models.py:97
+msgid "Cleavages"
 msgstr "Spaltbarkeit"
 
-#: geomat_content/models.py:93
-msgid "coordinates"
-msgstr "Borate"
+#: geomat_content/models.py:100
+msgid "Property"
+msgstr "Eigenschaften"
 
-#: geomat_content/models.py:113
+#: geomat_content/models.py:101
+msgid "Properties"
+msgstr "Eigenschaften"
+
+#: geomat_content/models.py:111
 msgid "Triclinic"
 msgstr "Triklin"
 
-#: geomat_content/models.py:114
+#: geomat_content/models.py:112
 msgid "Monoclinic"
 msgstr "Monoklin"
 
-#: geomat_content/models.py:115
+#: geomat_content/models.py:113
 msgid "Orthorhombic"
 msgstr "Orthorhombisch"
 
-#: geomat_content/models.py:116
+#: geomat_content/models.py:114
 msgid "Tetragonal"
 msgstr "Tetragonal"
 
-#: geomat_content/models.py:117
+#: geomat_content/models.py:115
 msgid "Trigonal"
 msgstr "Trigonal"
 
-#: geomat_content/models.py:118
+#: geomat_content/models.py:116
 msgid "Hexagonal"
 msgstr "Hexagonal"
 
-#: geomat_content/models.py:119
+#: geomat_content/models.py:117
 msgid "Cubic"
 msgstr "Kubisch"
 
-#: geomat_content/models.py:120
+#: geomat_content/models.py:118
 msgid "Amorph"
 msgstr "Amorph"
 
-#: geomat_content/models.py:134
+#: geomat_content/models.py:132
 msgid "crystal system"
 msgstr "Kristallsystem"
 
-#: geomat_content/models.py:137
+#: geomat_content/models.py:135
 msgid "temperature"
 msgstr "Temperatur"
 
-#: geomat_content/models.py:139
+#: geomat_content/models.py:138
 msgid "pressure"
 msgstr "Druck"
 
@@ -236,9 +212,36 @@ msgstr "Kristallsystem"
 msgid "Crystal Systems"
 msgstr "Kristallsysteme"
 
-#: geomat_content/serializers.py:100
+#: geomat_content/serializers.py:129
 msgid "systematics"
 msgstr "Systematik"
+
+msgid "mohs scale"
+msgstr "Mohshärte"
+
+msgid "density"
+msgstr "Dichte"
+
+#~ msgid "perfect"
+#~ msgstr "höchst vollkommen"
+
+#~ msgid "less perfect"
+#~ msgstr "vollkommen"
+
+#~ msgid "good"
+#~ msgstr "gut"
+
+#~ msgid "distinct"
+#~ msgstr "deutlich"
+
+#~ msgid "indistinct"
+#~ msgstr "undeutlich"
+
+#~ msgid "none"
+#~ msgstr "keine"
+
+#~ msgid "coordinates"
+#~ msgstr "Borate"
 
 #~ msgid "mineral type(s)"
 #~ msgstr "Mineralart"
