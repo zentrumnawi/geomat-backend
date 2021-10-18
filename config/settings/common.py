@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     "solid_backend.slideshow",
     "solid_backend.quiz",
     "solid_backend.photograph",
+    "solid_backend.media_object",
     "rest_framework",
     "corsheaders",
     "mptt",
     "drf_yasg",
+    "taggit",
     "django_cleanup.apps.CleanupConfig",
 ]
 
@@ -102,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/dev/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "de-de"
 
 TIME_ZONE = "UTC"
 

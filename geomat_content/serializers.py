@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from drf_yasg.utils import swagger_serializer_method
-from solid_backend.photograph.serializers import PhotographSerializer
+from solid_backend.media_object.serializers import MediaObjectSerializer
 
-from .models import Cleavage, CrystalSystem, MineralType
+from .models import MineralType, Property, Miscellaneous
 
 
 class MdStringField(serializers.CharField):
@@ -21,62 +21,35 @@ class ColStringField(serializers.CharField):
         }
 
 
-class CleavageSerializer(serializers.ModelSerializer):
-
-    cleavage = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Cleavage
-        fields = ("cleavage", "coordinates")
-
-    def get_cleavage(self, obj):
-        return obj.get_cleavage_display()
-
-
-class CrystalSystemSerializer(serializers.ModelSerializer):
+class CrystalSystemField(serializers.CharField):
     """
     This Serializer is used to represent a Version without the full mineraltype
     """
 
-    crystal_system = serializers.SerializerMethodField()
+    def to_representation(self, value):
+        return_str = ""
+        for system in value.all():
 
-    def get_crystal_system(self, obj):
-        choice_dict = dict(obj.CRYSTAL_SYSTEM_CHOICES)
-        key = obj.crystal_system
-        if key:
-            return choice_dict[key]
+            return_str += f"{system.get_crystal_system_display()}"
+            if system.temperature:
+                return_str += system.temperature
+            if system.pressure:
+                return_str += f"{system.pressure} \n"
 
-        return key
-
-    class Meta:
-        model = CrystalSystem
-        fields = ('id', 'mineral_type', 'crystal_system', 'temperature',
-                  'pressure')
+        return return_str
 
 
-class MineralTypeSerializer(serializers.ModelSerializer):
-    systematics = serializers.SerializerMethodField()
+class PropertySerializer(serializers.ModelSerializer):
+
     fracture = serializers.SerializerMethodField()
     lustre = serializers.SerializerMethodField()
     density = serializers.SerializerMethodField()
     mohs_scale = serializers.SerializerMethodField()
-    crystal_system = CrystalSystemSerializer(many=True)
-    cleavage = CleavageSerializer(many=True)
-    photographs = PhotographSerializer(many=True)
-
-    chemical_formula = MdStringField()
     normal_color = ColStringField()
-    
-    class Meta:
-        model = MineralType
-        fields = '__all__'
-        depth = 2
 
-    def get_systematics(self, obj):
-        systematic = obj.tree_node
-        if systematic:
-            return systematic.name
-        return None
+    class Meta:
+        model = Property
+        exclude = ["mineral_type", ]
 
     @swagger_serializer_method(serializer_or_field=serializers.ListField)
     def get_fracture(self, obj):
@@ -105,3 +78,34 @@ class MineralTypeSerializer(serializers.ModelSerializer):
         if float(obj.mohs_scale.upper) == float(obj.mohs_scale.lower) + 0.001:
             return "{}".format(obj.mohs_scale.lower).replace(".", ",")
         return "{0} - {1}".format(obj.mohs_scale.lower, obj.mohs_scale.upper).replace(".", ",")
+
+
+class MiscellaneousSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Miscellaneous
+        exclude = ["mineral_type", ]
+
+
+class MineralTypeSerializer(serializers.ModelSerializer):
+    systematics = serializers.SerializerMethodField()
+    chemical_formula = MdStringField()
+    crystal_system = CrystalSystemField()
+    media_objects = MediaObjectSerializer(many=True)
+    property = PropertySerializer()
+    miscellaneous = MiscellaneousSerializer()
+
+    class Meta:
+        model = MineralType
+        fields = [
+            "id", "systematics", "name", "variety", "trivial_name", "chemical_formula",
+            "crystal_system", "property", "miscellaneous", "media_objects", "tree_node"
+        ]
+
+        depth = 2
+
+    def get_systematics(self, obj):
+        systematic = obj.tree_node
+        if systematic:
+            return systematic.name
+        return None
