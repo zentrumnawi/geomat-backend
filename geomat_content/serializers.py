@@ -21,7 +21,12 @@ class VerboseLabelField(serializers.Field):
 
 @extend_schema_field({"type": "mdstring"})
 class MdStringField(VerboseLabelField, serializers.CharField):
-    pass
+
+    class Meta:
+        swagger_schema_fields = {
+            "type": "mdstring"
+        }
+
 
 
 @extend_schema_field({"type": "colstring"})
@@ -71,7 +76,7 @@ class ListVerboseField(VerboseLabelField):
     class Meta:
         swagger_schema_fields = {
             "type": openapi.TYPE_ARRAY,
-            "items" : {
+            "items": {
                 "type": openapi.TYPE_STRING,
             },
         }
