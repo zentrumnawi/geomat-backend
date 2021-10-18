@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from drf_yasg.utils import swagger_serializer_method
 from solid_backend.media_object.serializers import MediaObjectSerializer
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema_field, extend_schema_serializer
 
 from .models import MineralType, Property, Miscellaneous
 
@@ -39,10 +40,27 @@ class CrystalSystemField(serializers.CharField):
         return return_str
 
 
+class ListVerboseField(serializers.CharField):
+
+    def __init__(self, choice_dict, **kwargs):
+        super(ListVerboseField, self).__init__()
+        self.choice_dict = dict(choice_dict)
+
+    def bind(self, field_name, parent):
+        super(ListVerboseField, self).bind(field_name, parent)
+        self.label = self.parent.Meta.model._meta.get_field(self.field_name).verbose_name
+
+    def to_representation(self, value):
+        lst = []
+        if value:
+            lst = [self.choice_dict.get(choice) for choice in value]
+        return lst
+
+
 class PropertySerializer(serializers.ModelSerializer):
 
-    fracture = serializers.SerializerMethodField()
-    lustre = serializers.SerializerMethodField()
+    fracture = ListVerboseField(Property.FRACTURE_CHOICES)
+    lustre = ListVerboseField(Property.LUSTRE_CHOICES)
     density = serializers.SerializerMethodField()
     mohs_scale = serializers.SerializerMethodField()
     normal_color = ColStringField()
@@ -51,29 +69,13 @@ class PropertySerializer(serializers.ModelSerializer):
         model = Property
         exclude = ["mineral_type", ]
 
-    @swagger_serializer_method(serializer_or_field=serializers.ListField)
-    def get_fracture(self, obj):
-        lst = []
-        choice_dict = dict(obj.FRACTURE_CHOICES)
-        fracture = obj.fracture
-        if fracture:
-            lst = [choice_dict.get(choice) for choice in fracture]
-        return lst
-
-    @swagger_serializer_method(serializer_or_field=serializers.ListField)
-    def get_lustre(self, obj):
-        lst = []
-        choice_dict = dict(obj.LUSTRE_CHOICES)
-        lustre = obj.lustre
-        if lustre:
-            lst = [choice_dict.get(choice) for choice in lustre]
-        return lst
-
+    @extend_schema_field(OpenApiTypes.STR)
     def get_density(self, obj):
         if float(obj.density.upper) == float(obj.density.lower) + 0.001:
             return "{}".format(obj.density.lower).replace(".", ",")
         return "{0} - {1}".format(obj.density.lower, obj.density.upper).replace(".", ",")
 
+    @extend_schema_field(OpenApiTypes.STR)
     def get_mohs_scale(self, obj):
         if float(obj.mohs_scale.upper) == float(obj.mohs_scale.lower) + 0.001:
             return "{}".format(obj.mohs_scale.lower).replace(".", ",")
