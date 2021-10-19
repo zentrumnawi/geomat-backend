@@ -222,23 +222,24 @@ msgstr "Mohshärte"
 msgid "density"
 msgstr "Dichte"
 
-#~ msgid "perfect"
-#~ msgstr "höchst vollkommen"
+msgid "distinct"
+msgstr "deutlich"
 
-#~ msgid "less perfect"
-#~ msgstr "vollkommen"
+msgid "indistinct"
+msgstr "undeutlich"
 
-#~ msgid "good"
-#~ msgstr "gut"
+msgid "perfect"
+msgstr "höchst vollkommen"
 
-#~ msgid "distinct"
-#~ msgstr "deutlich"
+msgid "less perfect"
+msgstr "vollkommen"
 
-#~ msgid "indistinct"
-#~ msgstr "undeutlich"
+msgid "good"
+msgstr "gut"
 
-#~ msgid "none"
-#~ msgstr "keine"
+
+msgid "none"
+msgstr "keine"
 
 #~ msgid "coordinates"
 #~ msgstr "Borate"
