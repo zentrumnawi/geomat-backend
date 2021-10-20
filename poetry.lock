@@ -192,6 +192,23 @@ argon2 = ["argon2-cffi (>=16.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-anymail"
+version = "8.4"
+description = "Django email integration for Amazon SES, Mailgun, Mailjet, Postmark, SendGrid, SendinBlue, SparkPost and other transactional ESPs"
+category = "main"
+optional = false
+python-versions = ">=3.5"
+
+[package.dependencies]
+requests = ">=2.4.3"
+django = ">=2.0"
+
+[package.extras]
+amazon_ses = ["boto3"]
+postal = ["cryptography"]
+dev = ["flake8", "sphinx", "sphinx-rtd-theme", "tox", "twine", "wheel"]
+
+[[package]]
 name = "django-cleanup"
 version = "4.0.0"
 description = "Deletes old files."
@@ -1017,7 +1034,7 @@ testing = ["jaraco.itertools", "func-timeout"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "9537fc037382abfba8aed450fe069020cc4decda8c57d7717c6181388a40cdf5"
+content-hash = "c3cb28ac9dc006fc1d0e60e4d07d4bd518aa4f2ee3d9726c4cd09976a30c54c0"
 
 [metadata.files]
 appdirs = [
@@ -1146,6 +1163,10 @@ decorator = [
 django = [
     {file = "Django-3.0.7-py3-none-any.whl", hash = "sha256:e1630333248c9b3d4e38f02093a26f1e07b271ca896d73097457996e0fae12e8"},
     {file = "Django-3.0.7.tar.gz", hash = "sha256:5052b34b34b3425233c682e0e11d658fd6efd587d11335a0203d827224ada8f2"},
+]
+django-anymail = [
+    {file = "django-anymail-8.4.tar.gz", hash = "sha256:671a338de43b8e414d48c6d16aac1df54d2f24f916e1073f9f60aef5acffaf89"},
+    {file = "django_anymail-8.4-py3-none-any.whl", hash = "sha256:2e8307e84f0a12f9283469017094a8246db9a0fc608ac17dd1027ee011ece986"},
 ]
 django-cleanup = [
     {file = "django-cleanup-4.0.0.tar.gz", hash = "sha256:412c3f9417ddaaaa561b60237b109550b16e556db92d4616278fc7e1ad9ab0a4"},
