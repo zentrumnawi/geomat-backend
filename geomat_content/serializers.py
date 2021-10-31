@@ -28,9 +28,12 @@ class MdStringField(VerboseLabelField, serializers.CharField):
         }
 
 
-
 @extend_schema_field({"type": "colstring"})
 class ColStringField(VerboseLabelField, serializers.CharField):
+    pass
+
+
+class VerboseLabelCharField(VerboseLabelField, serializers.CharField):
     pass
 
 
@@ -122,6 +125,8 @@ class MiscellaneousSerializer(serializers.ModelSerializer):
 
 class MineralTypeSerializer(serializers.ModelSerializer):
     tree_node = SystematicsField(label=_("systematics"))
+    name = VerboseLabelCharField(source="get_name")
+    trivial_name = VerboseLabelCharField(source="get_trivial_name")
     crystal_system = CrystalSystemField()
     media_objects = MediaObjectSerializer(many=True)
     property = PropertySerializer()

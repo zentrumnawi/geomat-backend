@@ -31,6 +31,18 @@ class MineralType(SolidBaseProfile):
     def __str__(self):
         return self.trivial_name
 
+    @property
+    def get_name(self):
+        if self.variety:
+            return self.variety
+        return self.name
+
+    @property
+    def get_trivial_name(self):
+        if self.variety:
+            return self.name
+        return None
+
 
 class Miscellaneous(models.Model):
 
