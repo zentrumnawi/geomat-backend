@@ -138,9 +138,9 @@ LANGUAGES = [("de", _("German")), ("en", _("English"))]
 LOCALE_PATHS = [str(ROOT_DIR("locale"))]
 
 
-PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER_NAME = env(
-    "PROFILES_SERIALIZER", default=""
-).rsplit(".", 1)
+PROFILES_SERIALIZERS = {
+    "mineraltype_related": ("geomat_content.serializers", "MineralTypeSerializer",),
+}
 
 DATABASE_FIELD_MAPPING = {}
 

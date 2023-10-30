@@ -3,7 +3,7 @@ from django.contrib.postgres.fields.ranges import DecimalRangeField
 from django.contrib.postgres.fields import ArrayField
 from django.utils.translation import ugettext_lazy as _
 
-from solid_backend.content.models import BaseProfile, SolidBaseProfile, TreeNode
+from solid_backend.content.models import SolidBaseProfile, TreeNode
 
 
 class MineralType(SolidBaseProfile):
