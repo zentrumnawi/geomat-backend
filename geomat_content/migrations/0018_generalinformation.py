@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('chemical_formula', models.CharField(max_length=100, verbose_name='chemical formula')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='created at')),
                 ('last_modified', models.DateTimeField(auto_now=True, verbose_name='last modified')),
-                ('mineraltype', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='general_information', to='geomat_content.mineraltype', verbose_name='mineral type')),
+                ('mineral_type', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='general_information', to='geomat_content.mineraltype', verbose_name='mineral type')),
             ],
             options={
                 'verbose_name': 'mineral type',
