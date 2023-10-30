@@ -410,23 +410,23 @@ files = [
 
 [[package]]
 name = "django"
-version = "3.0.14"
+version = "3.2.22"
 description = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "Django-3.0.14-py3-none-any.whl", hash = "sha256:9bc7aa619ed878fedba62ce139abe663a147dccfd20e907725ec11e02a1ca225"},
-    {file = "Django-3.0.14.tar.gz", hash = "sha256:d58d8394036db75a81896037d757357e79406e8f68816c3e8a28721c1d9d4c11"},
+    {file = "Django-3.2.22-py3-none-any.whl", hash = "sha256:c5e7b668025a6e06cad9ba6d4de1fd1a21212acebb51ea34abb400c6e4d33430"},
+    {file = "Django-3.2.22.tar.gz", hash = "sha256:83b6d66b06e484807d778263fdc7f9186d4dc1862fcfa6507830446ac6b060ba"},
 ]
 
 [package.dependencies]
-asgiref = ">=3.2,<4.0"
+asgiref = ">=3.3.2,<4"
 pytz = "*"
 sqlparse = ">=0.2.2"
 
 [package.extras]
-argon2 = ["argon2-cffi (>=16.1.0)"]
+argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
@@ -464,18 +464,18 @@ files = [
 
 [[package]]
 name = "django-cors-headers"
-version = "3.11.0"
+version = "3.14.0"
 description = "django-cors-headers is a Django application for handling the server headers required for Cross-Origin Resource Sharing (CORS)."
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "django-cors-headers-3.11.0.tar.gz", hash = "sha256:eb98389bf7a2afc5d374806af4a9149697e3a6955b5a2dc2bf049f7d33647456"},
-    {file = "django_cors_headers-3.11.0-py3-none-any.whl", hash = "sha256:a22be2befd4069c4fc174f11cf067351df5c061a3a5f94a01650b4e928b0372b"},
+    {file = "django_cors_headers-3.14.0-py3-none-any.whl", hash = "sha256:684180013cc7277bdd8702b80a3c5a4b3fcae4abb2bf134dceb9f5dfe300228e"},
+    {file = "django_cors_headers-3.14.0.tar.gz", hash = "sha256:5fbd58a6fb4119d975754b2bc090f35ec160a8373f276612c675b00e8a138739"},
 ]
 
 [package.dependencies]
-Django = ">=2.2"
+Django = ">=3.2"
 
 [[package]]
 name = "django-coverage-plugin"
@@ -557,18 +557,18 @@ Django = ">=2.2"
 
 [[package]]
 name = "django-js-asset"
-version = "2.0.0"
+version = "2.1.0"
 description = "script tag with additional attributes for django.forms.Media"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.8"
 files = [
-    {file = "django_js_asset-2.0.0-py3-none-any.whl", hash = "sha256:86f9f300d682537ddaf0487dc2ab356581b8f50c069bdba91d334a46e449f923"},
-    {file = "django_js_asset-2.0.0.tar.gz", hash = "sha256:adc1ee1efa853fad42054b540c02205344bb406c9bddf87c9e5377a41b7db90f"},
+    {file = "django_js_asset-2.1.0-py3-none-any.whl", hash = "sha256:36a3a4dd6e9efc895fb127d13126020f6ec1ec9469ad42878d42143f22495d90"},
+    {file = "django_js_asset-2.1.0.tar.gz", hash = "sha256:be6f69ae5c4865617aa7726c48eddb64089a1e7d4ea7d22a35a3beb8282020f6"},
 ]
 
 [package.dependencies]
-Django = ">=2.2"
+django = ">=3.2"
 
 [package.extras]
 tests = ["coverage"]
@@ -1813,18 +1813,18 @@ files = [
 
 [[package]]
 name = "solid-backend"
-version = "0.2.1"
+version = "0.3.5"
 description = "Clean Django app for e-learning application with..."
 category = "main"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "solid_backend-0.2.1-py3-none-any.whl", hash = "sha256:882ceffffe70fe41ff13effd2b65c6c2e49a1b60518d23fec761efeac8449dc8"},
-    {file = "solid_backend-0.2.1.tar.gz", hash = "sha256:ffa9be9d832b9c14cbee16b392506a3475fcba552b236c2e2900e08104b028b2"},
+    {file = "solid_backend-0.3.5-py3-none-any.whl", hash = "sha256:65ce684e0978ada757e84871dfde9fc7900610cad9742f862e256a1742a93020"},
+    {file = "solid_backend-0.3.5.tar.gz", hash = "sha256:7648653d981b8bcd91f8238cc1597a3c9cc476edfdef927f29249cba114e3944"},
 ]
 
 [package.dependencies]
-django = ">=3.0.7,<3.1.0"
+django = ">=3.0.7,<4.0.0"
 django-cleanup = "4.0.0"
 django-filter = ">=21.1,<22.0"
 django-mptt = "0.11.0"
@@ -2155,4 +2155,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "de9f1127c086a2a6a2ed77811c50908fc105d52b66ecd0f1429839b5881baf1c"
+content-hash = "340b726a00e8b48db5d5b6162e02ae2a7e8a1a9e1ec11119632c726d4b1fca75"
