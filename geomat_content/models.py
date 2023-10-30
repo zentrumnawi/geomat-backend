@@ -44,6 +44,47 @@ class MineralType(SolidBaseProfile):
         return None
 
 
+class GeneralInformation(models.Model):
+
+    mineraltype = models.OneToOneField(
+        to=MineralType,
+        on_delete=models.CASCADE,
+        related_name=_("general_information"),
+        verbose_name=_("mineral type")
+    )
+    name = models.CharField(max_length=100, blank=True, verbose_name=_("minerals"))
+    variety = models.CharField(max_length=100, blank=True, verbose_name=_("variety"))
+    trivial_name = models.CharField(
+        max_length=100, blank=True, verbose_name=_("trivial name")
+    )
+
+    chemical_formula = models.CharField(
+        max_length=100, verbose_name=_("chemical formula")
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
+    last_modified = models.DateTimeField(auto_now=True, verbose_name=_("last modified"))
+
+    class Meta:
+        verbose_name = _("mineral type")
+        verbose_name_plural = _("mineral types")
+
+    def __str__(self):
+        return self.trivial_name
+
+    @property
+    def get_name(self):
+        if self.variety:
+            return self.variety
+        return self.name
+
+    @property
+    def get_trivial_name(self):
+        if self.variety:
+            return self.name
+        return None
+
+
 class Miscellaneous(models.Model):
 
     other = models.TextField(max_length=500, blank=True, verbose_name=_("comment"))
