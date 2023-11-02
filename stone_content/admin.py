@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Stone, GeneralInformation, Characteristic
+from .models import Stone, GeneralInformation, Characteristic, Composition
+
+
+class CompositionInline(admin.TabularInline):
+    model = Composition
 
 
 class GeneralInformationInline(admin.TabularInline):
@@ -11,7 +15,7 @@ class CharacteristicInline(admin.TabularInline):
 
 
 class StoneAdmin(admin.ModelAdmin):
-    inlines = [GeneralInformationInline, CharacteristicInline]
+    inlines = [GeneralInformationInline, CharacteristicInline, CompositionInline]
 
     class Meta:
         model = Stone
@@ -20,4 +24,5 @@ class StoneAdmin(admin.ModelAdmin):
 admin.site.register(Stone, StoneAdmin)
 admin.site.register(GeneralInformation, admin.ModelAdmin)
 admin.site.register(Characteristic, admin.ModelAdmin)
+admin.site.register(Composition, admin.ModelAdmin)
 # Register your models here.

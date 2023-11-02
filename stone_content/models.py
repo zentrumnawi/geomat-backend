@@ -2,10 +2,13 @@ from django.contrib.postgres.fields import ArrayField, DecimalRangeField
 from django.db import models
 from enum import Enum
 
+from django.db.models import DecimalField
 from django.forms import MultipleChoiceField
 from solid_backend.content.models import SolidBaseProfile
 from solid_backend.utils.drf_spectacular_extensions import MDTextField
 from django.utils.translation import ugettext_lazy as _
+
+from geomat_content.models import MineralType
 
 
 class ChoiceEnum(Enum):
@@ -250,3 +253,37 @@ class Characteristic(models.Model):
     class Meta:
         verbose_name = _("Eigenschaften")
         verbose_name_plural = _("Eigenschaften")
+
+
+class Composition(models.Model):
+    CEMENTATION_CHOICES = ChoiceEnum(
+        "CementationChoices",
+        (
+            "kalkig",
+            "kieselig",
+        )
+    )
+    compounds = models.CharField(max_length=256, blank=True, null=True, verbose_name=_("Mineralbestandteile"), help_text="Nur Mineralbestandteile eingeben, die nicht in 'Mineralien im Bestand' ausgewählt sind. Eingabeformat: Varietät1, Varietät2, ...")
+    mineraltype_compounds = models.ManyToManyField(to=MineralType, null=True, blank=True, verbose_name=_("Mineralien im Bestand"))
+    crystal_percent = DecimalField(decimal_places=2, max_digits=6, blank=True, null=True, verbose_name=_("Kristallanteil in %"))
+    components = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Komponenten"))
+    matrix = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Matrix"))
+    cementation = models.CharField(choices=CEMENTATION_CHOICES.choices(), max_length=1, blank=True, null=True)
+
+    stone = models.OneToOneField(
+        to=Stone,
+        on_delete=models.CASCADE,
+        related_name="composition",
+        verbose_name=_("Stein")
+    )
+
+    @property
+    def get_compounds(self):
+        ret_value = self.compounds
+        for mineral in self.mineraltype_compounds.all():
+            ret_value += f", {mineral.general_information.get_name}"
+        return ret_value
+
+    class Meta:
+        verbose_name = _("Zusammensetzung")
+        verbose_name_plural = _("Zusammensetzungen")
