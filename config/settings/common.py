@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "geomat_content.apps.GeomatContentConfig",
+    "stone_content.apps.StoneContentConfig",
     "solid_backend.content",
     "solid_backend.contact",
     "solid_backend.glossary",
