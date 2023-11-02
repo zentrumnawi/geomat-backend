@@ -37,7 +37,7 @@ class GeneralInformationInline(admin.TabularInline):
 class MineralTypeAdmin(admin.ModelAdmin):
 
     list_display = (
-        'get_name', 'variety',
+        'get_name', 'get_variety',
         'get_trivial_name', 'id'
     )
     inlines = [
@@ -49,11 +49,17 @@ class MineralTypeAdmin(admin.ModelAdmin):
         AudioVideoMediaObjectInline
     ]
 
+    @admin.display(description="Name")
     def get_name(self, obj):
         return obj.general_information.name
 
+    @admin.display(description="Trivial Name")
     def get_trivial_name(self, obj):
         return obj.general_information.trivial_name
+
+    @admin.display(description="Variety")
+    def get_variety(self, obj):
+        return obj.general_information.variety
 
 
 admin.site.register(MineralType, MineralTypeAdmin)
