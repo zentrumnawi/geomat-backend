@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from solid_backend.media_object.serializers import MediaObjectSerializer
+from solid_backend.utils.serializers import SolidModelSerializer
 from django.utils.translation import ugettext_lazy as _
 from solid_backend.photograph.serializers import PhotographSerializer
 from drf_spectacular.types import OpenApiTypes
@@ -7,9 +8,8 @@ from drf_spectacular.utils import extend_schema_field, extend_schema_serializer
 from drf_yasg import openapi
 
 
-from .models import MineralType, Property, Miscellaneous
+from .models import Property, Miscellaneous, MineralType, GeneralInformation
 from drf_spectacular.utils import extend_schema_field
-from .models import CrystalSystem, MineralType
 
 
 class VerboseLabelField(serializers.Field):
@@ -123,10 +123,17 @@ class MiscellaneousSerializer(serializers.ModelSerializer):
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
+class GeneralInformationSerializer(SolidModelSerializer):
+    name = serializers.CharField(source="get_name")
+    trivial_name = serializers.CharField(source="get_trivial_name")
+
+    class Meta:
+        model = GeneralInformation
+        exclude = ["mineral_type"]
+
+
 class MineralTypeSerializer(serializers.ModelSerializer):
     tree_node = SystematicsField(label=_("systematics"))
-    name = VerboseLabelCharField(source="get_name")
-    trivial_name = VerboseLabelCharField(source="get_trivial_name")
     crystal_system = CrystalSystemField()
     media_objects = MediaObjectSerializer(many=True)
     property = PropertySerializer()

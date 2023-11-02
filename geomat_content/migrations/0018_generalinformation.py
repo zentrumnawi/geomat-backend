@@ -24,8 +24,8 @@ class Migration(migrations.Migration):
                 ('mineral_type', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='general_information', to='geomat_content.mineraltype', verbose_name='mineral type')),
             ],
             options={
-                'verbose_name': 'mineral type',
-                'verbose_name_plural': 'mineral types',
+                'verbose_name': 'general information',
+                'verbose_name_plural': 'general information',
             },
         ),
     ]

@@ -46,7 +46,7 @@ class MineralType(SolidBaseProfile):
 
 class GeneralInformation(models.Model):
 
-    mineraltype = models.OneToOneField(
+    mineral_type = models.OneToOneField(
         to=MineralType,
         on_delete=models.CASCADE,
         related_name=_("general_information"),
@@ -66,8 +66,8 @@ class GeneralInformation(models.Model):
     last_modified = models.DateTimeField(auto_now=True, verbose_name=_("last modified"))
 
     class Meta:
-        verbose_name = _("mineral type")
-        verbose_name_plural = _("mineral types")
+        verbose_name = _("general information")
+        verbose_name_plural = _("general information")
 
     def __str__(self):
         return self.trivial_name
