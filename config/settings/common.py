@@ -141,6 +141,7 @@ LOCALE_PATHS = [str(ROOT_DIR("locale"))]
 
 PROFILES_SERIALIZERS = {
     "mineraltype_related": ("geomat_content.serializers", "MineralTypeSerializer",),
+    "stone_related": ("stone_content.serializers", "StoneSerializer")
 }
 
 DATABASE_FIELD_MAPPING = {}
