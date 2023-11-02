@@ -1,4 +1,4 @@
-from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.fields import ArrayField, DecimalRangeField
 from django.db import models
 from enum import Enum
 
@@ -118,3 +118,135 @@ class GeneralInformation(models.Model):
     class Meta:
         verbose_name = _("Allgemein")
         verbose_name_plural = _("Allgemein")
+
+
+class Characteristic(models.Model):
+    SEDIMENT_CHOICES = ChoiceEnum(
+        "SedimentaryChoices",
+        (
+            "homogen",
+            "inhomogen",
+            "matrixgestützt",
+            "komponentengestützt",
+            "hohe Rauigkeit",
+            "mittlere Rauigkeit",
+            "geringe Rauigkeit",
+            "sehr geringe Rauigkeit",
+            "gute Sortierung",
+            "mittlere Sortierung",
+            "schlechte Sortierung",
+            "unreif",
+            "mittelreif",
+            "reif",
+            "hochreif",
+            "feine Schichtung",
+            "mittlere Schichtung",
+            "grobe Schichtung",
+            "undeutliche Schichtung",
+            "keine Schichtung",
+            "Schrägschichtung",
+            "Kreuzschichtung",
+            "Rippelschichtung",
+            "mit Hohlräumen",
+            "mit Poren",
+            "Lockergestein",
+            "Festgestein",
+        )
+    )
+    IGNEOUS_CHOICES = ChoiceEnum(
+        "IgneousChoices",
+        (
+            "gleichkörnig (Mosaikgefüge)",
+            "ungleichkörnig (porphyrisch)",
+            "aphyrisch",
+            "isotrop (ungerichtet)",
+            "leichtes Fließgefüge",
+            "leichte Einregelung",
+            "geringe Rauigkeit",
+            "sehr geringe Rauigkeit",
+            "gute Sortierung",
+            "mittlere Sortierung",
+            "schlechte Sortierung",
+            "unreif",
+            "mittelreif",
+            "reif",
+            "hochreif",
+            "feine Schichtung",
+            "mittlere Schichtung",
+            "grobe Schichtung",
+            "undeutliche Schichtung",
+            "keine Schichtung",
+            "Schrägschichtung",
+            "Kreuzschichtung",
+            "Rippelschichtung",
+            "mit Hohlräumen",
+            "mit Poren",
+            "Lockergestein",
+            "Festgestein",
+        )
+    )
+    METAMORPHIC_CHOICES = ChoiceEnum(
+        "MetamorphicChoices",
+        (
+            "porphyroblastisch",
+            "nematoblastisch",
+            "kataklastisch",
+            "mylonitisch",
+            "gleichkörnig",
+            "holokristallin",
+            "massig (ungerichtet)",
+            "ungeregelt",
+            "schiefrig",
+            "gneisig",
+        )
+    )
+    POROSITY_CHOICES = ChoiceEnum(
+        "PorosityChoices",
+        (
+            "keine",
+            "sehr gering",
+            "gering",
+            "mittel",
+            "hoch",
+            "sehr hoch",
+        )
+    )
+    sed_fabtric = ChoiceArrayField(
+        models.CharField(
+            choices=SEDIMENT_CHOICES.choices(), max_length=2
+        ),
+        verbose_name=_("Gefüge (Sediment)"),
+    )
+    ign_fabric = ChoiceArrayField(
+        models.CharField(
+            choices=IGNEOUS_CHOICES.choices(), max_length=2, blank=True
+        ),
+        null=True,
+        blank=True,
+        verbose_name=_("Gefüge (Magmatit)"),
+    )
+    meta_fabric = ChoiceArrayField(
+        models.CharField(
+            choices=METAMORPHIC_CHOICES.choices(), max_length=2, blank=True
+        ),
+        null=True,
+        blank=True,
+        verbose_name=_("Gefüge (Metamorphit)"),
+    )
+    fabric_comment = models.TextField(max_length=256, null=True, blank=True, verbose_name=_("Gefüge Anmerkung"))
+    grain_size = models.CharField(max_length= 256, null=True, blank= True, verbose_name=_("Korngröße"))
+    color_index = models.CharField(max_length= 256, null=True, blank= True, verbose_name=_("Farbzahl M'"))
+    color = models.CharField(max_length= 256, null=True, blank= True, verbose_name=_("Farbe"))
+    density = DecimalRangeField(null=True, blank=True, verbose_name=_("Dichte [g/cm³]"))
+    porosity = models.CharField(choices=POROSITY_CHOICES.choices(), max_length=11, blank=True, null=True)
+
+    stone = models.OneToOneField(
+        to=Stone,
+        on_delete=models.CASCADE,
+        related_name="characteristics",
+        verbose_name=_("Stein")
+    )
+
+    class Meta:
+        verbose_name = _("Eigenschaften")
+        verbose_name_plural = _("Eigenschaften")
