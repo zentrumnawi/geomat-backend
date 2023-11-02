@@ -81,7 +81,7 @@ class RangeOrSingleNumberField(VerboseLabelField):
         return "{0} - {1}".format(value.lower, value.upper).replace(".", ",")
 
 
-class PropertySerializer(serializers.ModelSerializer):
+class PropertySerializer(SolidModelSerializer):
 
     fracture = ListVerboseField(Property.FRACTURE_CHOICES)
     lustre = ListVerboseField(Property.LUSTRE_CHOICES)
@@ -95,7 +95,7 @@ class PropertySerializer(serializers.ModelSerializer):
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
-class MiscellaneousSerializer(serializers.ModelSerializer):
+class MiscellaneousSerializer(SolidModelSerializer):
 
     class Meta:
         model = Miscellaneous
@@ -112,7 +112,7 @@ class GeneralInformationSerializer(SolidModelSerializer):
         exclude = ["mineral_type"]
 
 
-class MineralTypeSerializer(serializers.ModelSerializer):
+class MineralTypeSerializer(SolidModelSerializer):
     general_information = GeneralInformationSerializer()
     crystal_system = CrystalSystemField()
     media_objects = MediaObjectSerializer(many=True)
