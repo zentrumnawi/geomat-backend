@@ -2,7 +2,13 @@ from solid_backend.utils.serializers import SolidModelSerializer
 from rest_framework import serializers
 
 from geomat_content.serializers import MineralTypeSerializer
-from .models import Stone, GeneralInformation, Characteristic, Composition
+from .models import Stone, GeneralInformation, Characteristic, Composition, Emergence
+
+
+class EmergenceSerializer(SolidModelSerializer):
+    class Meta:
+        model = Emergence
+        exclude = ["stone"]
 
 
 class CompositionSerializer(SolidModelSerializer):
@@ -33,6 +39,7 @@ class StoneSerializer(SolidModelSerializer):
     general_information = GeneralInformationSerializer()
     characteristics = CharacteristcSerializer()
     composition = CompositionSerializer()
+    emergence = EmergenceSerializer()
 
     class Meta:
         model = Stone

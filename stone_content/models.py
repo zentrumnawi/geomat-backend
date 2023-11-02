@@ -287,3 +287,22 @@ class Composition(models.Model):
     class Meta:
         verbose_name = _("Zusammensetzung")
         verbose_name_plural = _("Zusammensetzungen")
+
+
+class Emergence(models.Model):
+
+    reagent = models.TextField(max_length=512, null=True, blank=True, verbose_name=_("Edukt"))
+    formation = models.TextField(max_length=512, null=True, blank=True, verbose_name=_("Bildung"))
+    locality = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Lokalität"))
+    age = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Alter"))
+
+    stone = models.OneToOneField(
+        to=Stone,
+        on_delete=models.CASCADE,
+        related_name="emergence",
+        verbose_name=_("Stein")
+    )
+
+    class Meta:
+        verbose_name = _("Entstehung & Vorkommen")
+        verbose_name_plural = _("Entstehungen und &Vorkommen")
