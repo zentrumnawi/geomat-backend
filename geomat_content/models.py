@@ -4,6 +4,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.utils.translation import ugettext_lazy as _
 
 from solid_backend.content.models import SolidBaseProfile, TreeNode
+from solid_backend.utils.drf_spectacular_extensions import MDTextField
 
 
 class MineralType(SolidBaseProfile):
@@ -33,7 +34,7 @@ class GeneralInformation(models.Model):
         max_length=100, blank=True, verbose_name=_("trivial name")
     )
 
-    chemical_formula = models.CharField(
+    chemical_formula = MDTextField(
         max_length=100, verbose_name=_("chemical formula")
     )
 

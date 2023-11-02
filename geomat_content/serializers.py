@@ -19,21 +19,9 @@ class VerboseLabelField(serializers.Field):
         self.label = str(self.parent.Meta.model._meta.get_field(self.field_name).verbose_name)
 
 
-@extend_schema_field({"type": "mdstring"})
-class MdStringField(VerboseLabelField, serializers.CharField):
-
-    class Meta:
-        swagger_schema_fields = {
-            "type": "mdstring"
-        }
-
 
 @extend_schema_field({"type": "colstring"})
 class ColStringField(VerboseLabelField, serializers.CharField):
-    pass
-
-
-class VerboseLabelCharField(VerboseLabelField, serializers.CharField):
     pass
 
 
@@ -93,14 +81,6 @@ class RangeOrSingleNumberField(VerboseLabelField):
         return "{0} - {1}".format(value.lower, value.upper).replace(".", ",")
 
 
-class SystematicsField(VerboseLabelField, serializers.CharField):
-
-    def to_representation(self, value):
-        if value:
-            return value.name
-        return None
-
-
 class PropertySerializer(serializers.ModelSerializer):
 
     fracture = ListVerboseField(Property.FRACTURE_CHOICES)
@@ -133,19 +113,13 @@ class GeneralInformationSerializer(SolidModelSerializer):
 
 
 class MineralTypeSerializer(serializers.ModelSerializer):
-    tree_node = SystematicsField(label=_("systematics"))
+    general_information = GeneralInformationSerializer()
     crystal_system = CrystalSystemField()
     media_objects = MediaObjectSerializer(many=True)
     property = PropertySerializer()
     miscellaneous = MiscellaneousSerializer()
 
-    chemical_formula = MdStringField()
-
     class Meta:
         model = MineralType
-        fields = [
-            "id", "tree_node", "name", "variety", "trivial_name", "chemical_formula",
-            "crystal_system", "property", "miscellaneous", "media_objects", "tree_node"
-        ]
-
+        fields = "__all__"
         depth = 2
