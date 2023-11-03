@@ -172,4 +172,4 @@ class CrystalSystem(models.Model):
         verbose_name_plural = _("Crystal Systems")
 
     def __str__(self):
-        return "{} ({})".format(self.mineral_type.name, self.crystal_system)
+        return "{} ({})".format(self.mineral_type.general_information.name, self.crystal_system)

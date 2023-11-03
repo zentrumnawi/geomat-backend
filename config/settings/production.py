@@ -5,7 +5,7 @@ from .common import *  # noqa
 # SECRET CONFIGURATION
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
-DEBUG = env("DJANGO_DEBUG", default=False)
+DEBUG = env.bool("DJANGO_DEBUG", default=False)
 
 # SECURITY CONFIGURATION
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
