@@ -17,7 +17,7 @@ class MineralType(SolidBaseProfile):
         verbose_name_plural = _("mineral types")
 
     def __str__(self):
-        return self.general_information.trivial_name
+        return self.general_information.name
 
 
 class GeneralInformation(models.Model):
