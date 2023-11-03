@@ -2,7 +2,7 @@ from django.contrib import admin
 from django import forms
 from solid_backend.media_object.admin import AudioVideoMediaObjectInline, ImageMediaObjectInline
 
-from .models import MineralType, CrystalSystem, Property, Miscellaneous
+from .models import MineralType, CrystalSystem, Property, Miscellaneous, GeneralInformation
 
 # Register your models here.
 
@@ -30,18 +30,36 @@ class CrystalSystemInline(admin.TabularInline):
     model = CrystalSystem
 
 
+class GeneralInformationInline(admin.TabularInline):
+    model = GeneralInformation
+
+
 class MineralTypeAdmin(admin.ModelAdmin):
 
-    list_display = ('name', 'variety',
-                    'trivial_name', 'created_at', 'last_modified',
-                    'id')
+    list_display = (
+        'get_name', 'get_variety',
+        'get_trivial_name', 'id'
+    )
     inlines = [
+        GeneralInformationInline,
         CrystalSystemInline,
         MiscellaneousInline,
         PropertyInline,
         ImageMediaObjectInline,
         AudioVideoMediaObjectInline
     ]
+
+    @admin.display(description="Name")
+    def get_name(self, obj):
+        return obj.general_information.name
+
+    @admin.display(description="Trivial Name")
+    def get_trivial_name(self, obj):
+        return obj.general_information.trivial_name
+
+    @admin.display(description="Variety")
+    def get_variety(self, obj):
+        return obj.general_information.variety
 
 
 admin.site.register(MineralType, MineralTypeAdmin)
@@ -64,3 +82,4 @@ class MiscellaneousAdmin(admin.ModelAdmin):
 admin.site.register(CrystalSystem, CrystallSystemAdmin)
 admin.site.register(Property, PropertyAdmin)
 admin.site.register(Miscellaneous, MiscellaneousAdmin)
+admin.site.register(GeneralInformation, admin.ModelAdmin)

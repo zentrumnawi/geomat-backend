@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "geomat_content.apps.GeomatContentConfig",
+    "stone_content.apps.StoneContentConfig",
     "solid_backend.content",
     "solid_backend.contact",
     "solid_backend.glossary",
@@ -138,9 +139,10 @@ LANGUAGES = [("de", _("German")), ("en", _("English"))]
 LOCALE_PATHS = [str(ROOT_DIR("locale"))]
 
 
-PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER_NAME = env(
-    "PROFILES_SERIALIZER", default=""
-).rsplit(".", 1)
+PROFILES_SERIALIZERS = {
+    "mineraltype_related": ("geomat_content.serializers", "MineralTypeSerializer",),
+    "stone_related": ("stone_content.serializers", "StoneSerializer")
+}
 
 DATABASE_FIELD_MAPPING = {}
 

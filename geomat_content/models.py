@@ -3,7 +3,8 @@ from django.contrib.postgres.fields.ranges import DecimalRangeField
 from django.contrib.postgres.fields import ArrayField
 from django.utils.translation import ugettext_lazy as _
 
-from solid_backend.content.models import BaseProfile, SolidBaseProfile, TreeNode
+from solid_backend.content.models import SolidBaseProfile, TreeNode
+from solid_backend.utils.drf_spectacular_extensions import MDTextField
 
 
 class MineralType(SolidBaseProfile):
@@ -11,13 +12,29 @@ class MineralType(SolidBaseProfile):
     Defines the mineral type model.
     """
 
+    class Meta:
+        verbose_name = _("mineral type")
+        verbose_name_plural = _("mineral types")
+
+    def __str__(self):
+        return self.general_information.trivial_name
+
+
+class GeneralInformation(models.Model):
+
+    mineral_type = models.OneToOneField(
+        to=MineralType,
+        on_delete=models.CASCADE,
+        related_name=_("general_information"),
+        verbose_name=_("mineral type")
+    )
     name = models.CharField(max_length=100, blank=True, verbose_name=_("minerals"))
     variety = models.CharField(max_length=100, blank=True, verbose_name=_("variety"))
     trivial_name = models.CharField(
         max_length=100, blank=True, verbose_name=_("trivial name")
     )
 
-    chemical_formula = models.CharField(
+    chemical_formula = MDTextField(
         max_length=100, verbose_name=_("chemical formula")
     )
 
@@ -25,8 +42,8 @@ class MineralType(SolidBaseProfile):
     last_modified = models.DateTimeField(auto_now=True, verbose_name=_("last modified"))
 
     class Meta:
-        verbose_name = _("mineral type")
-        verbose_name_plural = _("mineral types")
+        verbose_name = _("general information")
+        verbose_name_plural = _("general information")
 
     def __str__(self):
         return self.trivial_name
@@ -155,4 +172,4 @@ class CrystalSystem(models.Model):
         verbose_name_plural = _("Crystal Systems")
 
     def __str__(self):
-        return "{} ({})".format(self.mineral_type.name, self.crystal_system)
+        return "{} ({})".format(self.mineral_type.general_information.name, self.crystal_system)

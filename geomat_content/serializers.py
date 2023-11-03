@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from solid_backend.media_object.serializers import MediaObjectSerializer
+from solid_backend.utils.serializers import SolidModelSerializer
 from django.utils.translation import ugettext_lazy as _
 from solid_backend.photograph.serializers import PhotographSerializer
 from drf_spectacular.types import OpenApiTypes
@@ -7,9 +8,8 @@ from drf_spectacular.utils import extend_schema_field, extend_schema_serializer
 from drf_yasg import openapi
 
 
-from .models import MineralType, Property, Miscellaneous
+from .models import Property, Miscellaneous, MineralType, GeneralInformation
 from drf_spectacular.utils import extend_schema_field
-from .models import CrystalSystem, MineralType
 
 
 class VerboseLabelField(serializers.Field):
@@ -19,21 +19,9 @@ class VerboseLabelField(serializers.Field):
         self.label = str(self.parent.Meta.model._meta.get_field(self.field_name).verbose_name)
 
 
-@extend_schema_field({"type": "mdstring"})
-class MdStringField(VerboseLabelField, serializers.CharField):
-
-    class Meta:
-        swagger_schema_fields = {
-            "type": "mdstring"
-        }
-
 
 @extend_schema_field({"type": "colstring"})
 class ColStringField(VerboseLabelField, serializers.CharField):
-    pass
-
-
-class VerboseLabelCharField(VerboseLabelField, serializers.CharField):
     pass
 
 
@@ -93,15 +81,7 @@ class RangeOrSingleNumberField(VerboseLabelField):
         return "{0} - {1}".format(value.lower, value.upper).replace(".", ",")
 
 
-class SystematicsField(VerboseLabelField, serializers.CharField):
-
-    def to_representation(self, value):
-        if value:
-            return value.name
-        return None
-
-
-class PropertySerializer(serializers.ModelSerializer):
+class PropertySerializer(SolidModelSerializer):
 
     fracture = ListVerboseField(Property.FRACTURE_CHOICES)
     lustre = ListVerboseField(Property.LUSTRE_CHOICES)
@@ -115,7 +95,7 @@ class PropertySerializer(serializers.ModelSerializer):
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
-class MiscellaneousSerializer(serializers.ModelSerializer):
+class MiscellaneousSerializer(SolidModelSerializer):
 
     class Meta:
         model = Miscellaneous
@@ -123,22 +103,23 @@ class MiscellaneousSerializer(serializers.ModelSerializer):
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
-class MineralTypeSerializer(serializers.ModelSerializer):
-    tree_node = SystematicsField(label=_("systematics"))
-    name = VerboseLabelCharField(source="get_name")
-    trivial_name = VerboseLabelCharField(source="get_trivial_name")
+class GeneralInformationSerializer(SolidModelSerializer):
+    name = serializers.CharField(source="get_name")
+    trivial_name = serializers.CharField(source="get_trivial_name")
+
+    class Meta:
+        model = GeneralInformation
+        exclude = ["mineral_type"]
+
+
+class MineralTypeSerializer(SolidModelSerializer):
+    general_information = GeneralInformationSerializer()
     crystal_system = CrystalSystemField()
     media_objects = MediaObjectSerializer(many=True)
     property = PropertySerializer()
     miscellaneous = MiscellaneousSerializer()
 
-    chemical_formula = MdStringField()
-
     class Meta:
         model = MineralType
-        fields = [
-            "id", "tree_node", "name", "variety", "trivial_name", "chemical_formula",
-            "crystal_system", "property", "miscellaneous", "media_objects", "tree_node"
-        ]
-
+        fields = "__all__"
         depth = 2

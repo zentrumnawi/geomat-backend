@@ -1,10 +1,10 @@
-FROM python:3.7-slim
+FROM python:3.8-slim
 ARG DJANGO_SETTINGS_MODULE
 ARG DJANGO_ADMIN_URL
 ARG DJANGO_SECRET_KEY
 ARG DATABASE_URL
 ARG DJANGO_SENTRY_DSN
-ENV PYTHONBUFFERED=1 DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE} DJANGO_ADMIN_URL=${DJANGO_ADMIN_URL} DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY} DATABASE_URL=${DATABASE_URL} DJANGO_SENTRY_DSN=${DJANGO_SENTRY_DSN} POETRY_VERSION=1.1.11 POETRY_VIRTUALENVS_CREATE=false
+ENV PYTHONBUFFERED=1 DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE} DJANGO_ADMIN_URL=${DJANGO_ADMIN_URL} DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY} DATABASE_URL=${DATABASE_URL} DJANGO_SENTRY_DSN=${DJANGO_SENTRY_DSN} POETRY_VERSION=1.3.2 POETRY_VIRTUALENVS_CREATE=false
 
 # Add new user to run the whole thing as non-root
 RUN groupadd app
@@ -21,8 +21,9 @@ RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
 
 # Copy Pipfile and install python dependencies
 COPY --chown=app:app pyproject.toml poetry.lock /
-RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
-RUN PATH="$PATH:$HOME/.poetry/bin" && poetry install
+RUN curl -sSL https://install.python-poetry.org  | python3 -
+
+RUN PATH="$PATH:$HOME/.local/bin" && poetry install
 
 # Copy dokku specific files to the project root
 COPY --chown=app:app docker/dokku/* /app/
