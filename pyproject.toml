@@ -7,13 +7,13 @@ authors = []
 [tool.poetry.dependencies]
 python = "^3.8"
 psycopg2-binary = "^2.8.5"
-django = "^3.0.7"
+django = "^3.2.1"
 gunicorn = "*"
 django-environ = "*"
 gevent = "*"
 whitenoise = "*"
 raven = "*"
-solid-backend = "^0.2.1"
+solid-backend = {version = "^0.3.0", allow-prereleases = true}
 djangorestframework = "*"
 drf_yasg = "^1.17.1"
 django-cors-headers = "^3.4.0"
