@@ -1,4 +1,6 @@
 from django.contrib import admin
+from solid_backend.media_object.admin import ImageMediaObjectInline, AudioVideoMediaObjectInline
+
 from .models import Stone, GeneralInformation, Characteristic, Composition, Emergence
 
 
@@ -19,7 +21,14 @@ class CharacteristicInline(admin.TabularInline):
 
 
 class StoneAdmin(admin.ModelAdmin):
-    inlines = [GeneralInformationInline, CharacteristicInline, CompositionInline, EmergenceInline]
+    inlines = [
+        GeneralInformationInline,
+        CharacteristicInline,
+        CompositionInline,
+        EmergenceInline,
+        ImageMediaObjectInline,
+        AudioVideoMediaObjectInline
+    ]
 
     class Meta:
         model = Stone
