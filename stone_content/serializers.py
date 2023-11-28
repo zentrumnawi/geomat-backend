@@ -1,3 +1,4 @@
+from solid_backend.media_object.serializers import MediaObjectSerializer
 from solid_backend.utils.serializers import SolidModelSerializer
 from rest_framework import serializers
 
@@ -40,6 +41,7 @@ class StoneSerializer(SolidModelSerializer):
     characteristics = CharacteristcSerializer()
     composition = CompositionSerializer()
     emergence = EmergenceSerializer()
+    media_objects = MediaObjectSerializer(many=True)
 
     class Meta:
         model = Stone
