@@ -103,14 +103,14 @@ class MiscellaneousSerializer(SolidModelSerializer):
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
-class GeneralInformationSerializer(SolidModelSerializer):
+class MineralTypeGeneralInformationSerializer(SolidModelSerializer):
 
     class Meta:
         model = GeneralInformation
         exclude = ["mineral_type"]
 
     def to_representation(self, value):
-        initial_representation = super(GeneralInformationSerializer, self).to_representation(value)
+        initial_representation = super(MineralTypeGeneralInformationSerializer, self).to_representation(value)
         if initial_representation["variety"]:
             initial_representation["trivial_name"] = initial_representation["name"]
             initial_representation["name"] = initial_representation["variety"]
@@ -120,7 +120,7 @@ class GeneralInformationSerializer(SolidModelSerializer):
 
 
 class MineralTypeSerializer(SolidModelSerializer):
-    general_information = GeneralInformationSerializer()
+    general_information = MineralTypeGeneralInformationSerializer()
     crystal_system = CrystalSystemField()
     media_objects = MediaObjectSerializer(many=True)
     property = PropertySerializer()

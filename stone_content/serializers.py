@@ -24,7 +24,7 @@ class CompositionSerializer(SolidModelSerializer):
         exclude = ["stone"]
 
 
-class GeneralInformationSerializer(SolidModelSerializer):
+class StoneGeneralInformationSerializer(SolidModelSerializer):
     class Meta:
         model = GeneralInformation
         exclude = ["stone"]
@@ -37,7 +37,7 @@ class CharacteristcSerializer(SolidModelSerializer):
 
 
 class StoneSerializer(SolidModelSerializer):
-    general_information = GeneralInformationSerializer()
+    general_information = StoneGeneralInformationSerializer()
     characteristics = CharacteristcSerializer()
     composition = CompositionSerializer()
     emergence = EmergenceSerializer()
