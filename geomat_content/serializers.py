@@ -104,12 +104,19 @@ class MiscellaneousSerializer(SolidModelSerializer):
 
 
 class GeneralInformationSerializer(SolidModelSerializer):
-    name = serializers.CharField(source="get_name")
-    trivial_name = serializers.CharField(source="get_trivial_name")
 
     class Meta:
         model = GeneralInformation
         exclude = ["mineral_type"]
+
+    def to_representation(self, value):
+        initial_representation = super(GeneralInformationSerializer, self).to_representation(value)
+        if initial_representation["variety"]:
+            initial_representation["trivial_name"] = initial_representation["name"]
+            initial_representation["name"] = initial_representation["variety"]
+            return initial_representation
+        initial_representation["trivial_name"] = None
+        return initial_representation
 
 
 class MineralTypeSerializer(SolidModelSerializer):
