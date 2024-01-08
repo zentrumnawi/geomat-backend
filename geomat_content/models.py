@@ -29,8 +29,8 @@ class GeneralInformation(models.Model):
         verbose_name=_("mineral type")
     )
     name = models.CharField(max_length=100, blank=True, verbose_name=_("minerals"))
-    variety = models.CharField(max_length=100, blank=True, verbose_name=_("variety"))
-    trivial_name = models.CharField(
+    variety_name = models.CharField(max_length=100, blank=True, verbose_name=_("variety"))
+    sub_name = models.CharField(
         max_length=100, blank=True, verbose_name=_("trivial name")
     )
 
@@ -47,18 +47,6 @@ class GeneralInformation(models.Model):
 
     def __str__(self):
         return self.trivial_name
-
-    @property
-    def get_name(self):
-        if self.variety:
-            return self.variety
-        return self.name
-
-    @property
-    def get_trivial_name(self):
-        if self.variety:
-            return self.name
-        return None
 
 
 class Miscellaneous(models.Model):

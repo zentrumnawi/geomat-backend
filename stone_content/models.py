@@ -36,7 +36,6 @@ class ChoiceArrayField(ArrayField):
 
 
 class Stone(SolidBaseProfile):
-
     class Meta:
         verbose_name = _("Stein")
         verbose_name_plural = _("Steine")
@@ -91,7 +90,7 @@ class GeneralInformation(models.Model):
     )
 
     name = models.CharField(max_length=256, verbose_name=_("Gesteinsname"))
-    alt_name = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Alternativname"))
+    sub_name = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Alternativname"))
     eng_name = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Englischer Name"))
     dunham_class = ChoiceArrayField(
         models.CharField(
@@ -237,9 +236,9 @@ class Characteristic(models.Model):
         verbose_name=_("Gefüge (Metamorphit)"),
     )
     fabric_comment = models.TextField(max_length=256, null=True, blank=True, verbose_name=_("Gefüge Anmerkung"))
-    grain_size = models.CharField(max_length= 256, null=True, blank= True, verbose_name=_("Korngröße"))
-    color_index = models.CharField(max_length= 256, null=True, blank= True, verbose_name=_("Farbzahl M'"))
-    color = models.CharField(max_length= 256, null=True, blank= True, verbose_name=_("Farbe"))
+    grain_size = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Korngröße"))
+    color_index = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Farbzahl M'"))
+    color = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Farbe"))
     density = DecimalRangeField(null=True, blank=True, verbose_name=_("Dichte [g/cm³]"))
     porosity = models.CharField(choices=POROSITY_CHOICES.choices(), max_length=11, blank=True, null=True)
 
@@ -263,9 +262,12 @@ class Composition(models.Model):
             "kieselig",
         )
     )
-    compounds = models.CharField(max_length=256, blank=True, null=True, verbose_name=_("Mineralbestandteile"), help_text="Nur Mineralbestandteile eingeben, die nicht in 'Mineralien im Bestand' ausgewählt sind. Eingabeformat: Varietät1, Varietät2, ...")
-    mineraltype_compounds = models.ManyToManyField(to=MineralType, null=True, blank=True, verbose_name=_("Mineralien im Bestand"))
-    crystal_percent = DecimalField(decimal_places=2, max_digits=6, blank=True, null=True, verbose_name=_("Kristallanteil in %"))
+    compounds = models.CharField(max_length=256, blank=True, null=True, verbose_name=_("Mineralbestandteile"),
+                                 help_text="Nur Mineralbestandteile eingeben, die nicht in 'Mineralien im Bestand' ausgewählt sind. Eingabeformat: Varietät1, Varietät2, ...")
+    mineraltype_compounds = models.ManyToManyField(to=MineralType, null=True, blank=True,
+                                                   verbose_name=_("Mineralien im Bestand"))
+    crystal_percent = DecimalField(decimal_places=2, max_digits=6, blank=True, null=True,
+                                   verbose_name=_("Kristallanteil in %"))
     components = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Komponenten"))
     matrix = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Matrix"))
     cementation = models.CharField(choices=CEMENTATION_CHOICES.choices(), max_length=1, blank=True, null=True)
@@ -281,7 +283,8 @@ class Composition(models.Model):
     def get_compounds(self):
         ret_value = self.compounds
         for mineral in self.mineraltype_compounds.all():
-            ret_value += f", {mineral.general_information.get_name}"
+            name = mineral.general_information.variety_name if mineral.general_information.variety_name else mineral.general_information.name
+            ret_value += f", {name}"
         return ret_value
 
     class Meta:
@@ -290,7 +293,6 @@ class Composition(models.Model):
 
 
 class Emergence(models.Model):
-
     reagent = models.TextField(max_length=512, null=True, blank=True, verbose_name=_("Edukt"))
     formation = models.TextField(max_length=512, null=True, blank=True, verbose_name=_("Bildung"))
     locality = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Lokalität"))
