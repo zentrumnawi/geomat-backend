@@ -98,7 +98,7 @@ class GeneralInformation(models.Model):
         ),
         null=True,
         blank=True,
-        verbose_name=_("Dunhamn Klassifikation"),
+        verbose_name=_("Dunham Klassifikation"),
     )
     add_class = ChoiceArrayField(
         models.CharField(
@@ -240,7 +240,7 @@ class Characteristic(models.Model):
     color_index = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Farbzahl M'"))
     color = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Farbe"))
     density = DecimalRangeField(null=True, blank=True, verbose_name=_("Dichte [g/cm³]"))
-    porosity = models.CharField(choices=POROSITY_CHOICES.choices(), max_length=11, blank=True, null=True)
+    porosity = models.CharField(choices=POROSITY_CHOICES.choices(), max_length=11, blank=True, null=True, verbose_name=_("Porosität"))
 
     stone = models.OneToOneField(
         to=Stone,
