@@ -112,10 +112,10 @@ class MineralTypeGeneralInformationSerializer(SolidModelSerializer):
     def to_representation(self, value):
         initial_representation = super(MineralTypeGeneralInformationSerializer, self).to_representation(value)
         if initial_representation["variety"]:
-            initial_representation["trivial_name"] = initial_representation["name"]
+            initial_representation["sub_name"] = initial_representation["name"]
             initial_representation["name"] = initial_representation["variety"]
             return initial_representation
-        initial_representation["trivial_name"] = None
+        initial_representation["sub_name"] = None
         return initial_representation
 
 
