@@ -107,13 +107,13 @@ class MineralTypeGeneralInformationSerializer(SolidModelSerializer):
 
     class Meta:
         model = GeneralInformation
-        exclude = ["mineral_type", "created_at", "modified_at"]
+        exclude = ["mineral_type", "created_at", "last_modified"]
 
     def to_representation(self, value):
         initial_representation = super(MineralTypeGeneralInformationSerializer, self).to_representation(value)
-        if initial_representation["variety"]:
+        if initial_representation["variety_name"]:
             initial_representation["sub_name"] = initial_representation["name"]
-            initial_representation["name"] = initial_representation["variety"]
+            initial_representation["name"] = initial_representation["variety_name"]
             return initial_representation
         initial_representation["sub_name"] = None
         return initial_representation
