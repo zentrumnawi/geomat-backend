@@ -90,7 +90,7 @@ class GeneralInformation(models.Model):
     )
 
     name = models.CharField(max_length=256, verbose_name=_("Gesteinsname"))
-    alt_name = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Alternativname"))
+    sub_name = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Alternativname"))
     eng_name = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Englischer Name"))
     dunham_class = ChoiceArrayField(
         models.CharField(
