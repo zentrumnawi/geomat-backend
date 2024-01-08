@@ -29,7 +29,7 @@ class GeneralInformation(models.Model):
         verbose_name=_("mineral type")
     )
     name = models.CharField(max_length=100, blank=True, verbose_name=_("minerals"))
-    variety = models.CharField(max_length=100, blank=True, verbose_name=_("variety"))
+    variety_name = models.CharField(max_length=100, blank=True, verbose_name=_("variety"))
     sub_name = models.CharField(
         max_length=100, blank=True, verbose_name=_("trivial name")
     )
