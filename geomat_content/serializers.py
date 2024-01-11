@@ -25,9 +25,8 @@ class ColStringField(VerboseLabelField, serializers.CharField):
     pass
 
 
-class CrystalSystemField(serializers.CharField):
+class CrystalSystemField(serializers.SerializerMethodField):
     """
-    This Serializer is used to represent a Version without the full mineraltype
     """
 
     def bind(self, field_name, parent):
@@ -36,13 +35,13 @@ class CrystalSystemField(serializers.CharField):
 
     def to_representation(self, value):
         return_str = ""
-        for system in value.all():
+        for system in value.mineral_type.crystal_system.all():
 
             return_str += f"{system.get_crystal_system_display()}"
             if system.temperature:
-                return_str += system.temperature
+                return_str += " " + system.temperature
             if system.pressure:
-                return_str += f"{system.pressure} \n"
+                return_str += f" {system.pressure} \n"
 
         return return_str
 
@@ -105,6 +104,8 @@ class MiscellaneousSerializer(SolidModelSerializer):
 
 class MineralTypeGeneralInformationSerializer(SolidModelSerializer):
 
+    crystal_system = CrystalSystemField()
+
     class Meta:
         model = GeneralInformation
         exclude = ["mineral_type", "created_at", "last_modified"]
@@ -121,7 +122,6 @@ class MineralTypeGeneralInformationSerializer(SolidModelSerializer):
 
 class MineralTypeSerializer(SolidModelSerializer):
     general_information = MineralTypeGeneralInformationSerializer()
-    crystal_system = CrystalSystemField()
     media_objects = MediaObjectSerializer(many=True)
     property = PropertySerializer()
     miscellaneous = MiscellaneousSerializer()

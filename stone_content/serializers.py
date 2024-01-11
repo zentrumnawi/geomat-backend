@@ -21,7 +21,9 @@ class MinimalMineralTypeSerializer(MineralTypeSerializer):
         return obj.general_information.name
 
     def get_sub_name(self, obj):
-        return obj.general_information.sub_name
+        if obj.general_information.variety_name:
+            return obj.general_information.name
+        return None
 
     class Meta:
         model = MineralType
