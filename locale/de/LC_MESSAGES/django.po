@@ -41,7 +41,7 @@ msgstr "Trivialname"
 
 #: geomat_content/models.py:21
 msgid "chemical formula"
-msgstr "Chemismus"
+msgstr "Chemische Formel"
 
 #: geomat_content/models.py:24
 msgid "created at"
