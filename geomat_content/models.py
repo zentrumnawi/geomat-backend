@@ -25,7 +25,7 @@ class GeneralInformation(models.Model):
     mineral_type = models.OneToOneField(
         to=MineralType,
         on_delete=models.CASCADE,
-        related_name=_("general_information"),
+        related_name="general_information",
         verbose_name=_("mineral type")
     )
     name = models.CharField(max_length=100, blank=True, verbose_name=_("minerals"))
