@@ -279,14 +279,6 @@ class Composition(models.Model):
         verbose_name=_("Stein")
     )
 
-    @property
-    def get_compounds(self):
-        ret_value = self.compounds
-        for mineral in self.mineraltype_compounds.all():
-            name = mineral.general_information.variety_name if mineral.general_information.variety_name else mineral.general_information.name
-            ret_value += f", {name}"
-        return ret_value
-
     class Meta:
         verbose_name = _("Zusammensetzung")
         verbose_name_plural = _("Zusammensetzungen")

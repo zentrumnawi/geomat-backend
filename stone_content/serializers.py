@@ -31,15 +31,19 @@ class MinimalMineralTypeSerializer(MineralTypeSerializer):
 
 
 class CompositionSerializer(SolidModelSerializer):
-    compounds = serializers.CharField(
-        source="get_compounds",
-        label=Composition._meta.get_field("compounds").verbose_name
-    )
     mineraltype_compounds = MinimalMineralTypeSerializer(many=True)
+
+    def to_representation(self, instance):
+        initial_repr = super(CompositionSerializer, self).to_representation(instance)
+        for compound in instance.compounds.split(", "):
+            initial_repr["mineraltype_compounds"].append(
+                {"id": None, "name": compound, "sub_name": ""}
+            )
+        return initial_repr
 
     class Meta:
         model = Composition
-        exclude = ["stone"]
+        exclude = ["stone", "compounds"]
 
 
 class StoneGeneralInformationSerializer(SolidModelSerializer):
