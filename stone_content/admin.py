@@ -1,11 +1,11 @@
 from django.contrib import admin
-from django.forms import ModelChoiceField, ModelForm
+from django.forms import ModelChoiceField, ModelForm, ModelMultipleChoiceField
 from solid_backend.media_object.admin import ImageMediaObjectInline, AudioVideoMediaObjectInline
 
 from .models import Stone, GeneralInformation, Characteristic, Composition, Emergence
 
 
-class MineralTypeSelectField(ModelChoiceField):
+class MineralTypeSelectField(ModelMultipleChoiceField):
     def label_from_instance(self, obj):
         return obj.general_information.name + ", " + obj.general_information.variety_name
 
