@@ -59,7 +59,7 @@ class MineralTypeAdmin(admin.ModelAdmin):
 
     @admin.display(description="Variety")
     def get_variety(self, obj):
-        return obj.general_information.variety
+        return obj.general_information.variety_name
 
 
 admin.site.register(MineralType, MineralTypeAdmin)

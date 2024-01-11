@@ -30,8 +30,8 @@ class GeneralInformation(models.Model):
     )
     name = models.CharField(max_length=100, blank=True, verbose_name=_("minerals"))
     variety_name = models.CharField(max_length=100, blank=True, verbose_name=_("variety"))
-    sub_name = models.CharField(
-        max_length=100, blank=True, verbose_name=_("trivial name")
+    trivial_name = models.CharField(
+        max_length=100, null=True, blank=True, verbose_name=_("trivial name")
     )
 
     chemical_formula = MDTextField(

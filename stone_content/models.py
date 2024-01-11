@@ -98,7 +98,7 @@ class GeneralInformation(models.Model):
         ),
         null=True,
         blank=True,
-        verbose_name=_("Dunhamn Klassifikation"),
+        verbose_name=_("Dunham Klassifikation"),
     )
     add_class = ChoiceArrayField(
         models.CharField(
@@ -240,7 +240,7 @@ class Characteristic(models.Model):
     color_index = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Farbzahl M'"))
     color = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Farbe"))
     density = DecimalRangeField(null=True, blank=True, verbose_name=_("Dichte [g/cm³]"))
-    porosity = models.CharField(choices=POROSITY_CHOICES.choices(), max_length=11, blank=True, null=True)
+    porosity = models.CharField(choices=POROSITY_CHOICES.choices(), max_length=11, blank=True, null=True, verbose_name=_("Porosität"))
 
     stone = models.OneToOneField(
         to=Stone,
@@ -270,7 +270,7 @@ class Composition(models.Model):
                                    verbose_name=_("Kristallanteil in %"))
     components = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Komponenten"))
     matrix = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Matrix"))
-    cementation = models.CharField(choices=CEMENTATION_CHOICES.choices(), max_length=1, blank=True, null=True)
+    cementation = models.CharField(choices=CEMENTATION_CHOICES.choices(), max_length=1, blank=True, null=True, verbose_name=_("Zement"))
 
     stone = models.OneToOneField(
         to=Stone,
@@ -278,14 +278,6 @@ class Composition(models.Model):
         related_name="composition",
         verbose_name=_("Stein")
     )
-
-    @property
-    def get_compounds(self):
-        ret_value = self.compounds
-        for mineral in self.mineraltype_compounds.all():
-            name = mineral.general_information.variety_name if mineral.general_information.variety_name else mineral.general_information.name
-            ret_value += f", {name}"
-        return ret_value
 
     class Meta:
         verbose_name = _("Zusammensetzung")
