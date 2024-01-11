@@ -270,7 +270,7 @@ class Composition(models.Model):
                                    verbose_name=_("Kristallanteil in %"))
     components = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Komponenten"))
     matrix = models.CharField(max_length=256, null=True, blank=True, verbose_name=_("Matrix"))
-    cementation = models.CharField(choices=CEMENTATION_CHOICES.choices(), max_length=1, blank=True, null=True)
+    cementation = models.CharField(choices=CEMENTATION_CHOICES.choices(), max_length=1, blank=True, null=True, verbose_name=_("Zement"))
 
     stone = models.OneToOneField(
         to=Stone,
