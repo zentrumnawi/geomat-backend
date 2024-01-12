@@ -1,6 +1,8 @@
+from solid_backend.media_object.serializers import MediaObjectSerializer
 from solid_backend.utils.serializers import SolidModelSerializer
 from rest_framework import serializers
 
+from geomat_content.models import MineralType
 from geomat_content.serializers import MineralTypeSerializer
 from .models import Stone, GeneralInformation, Characteristic, Composition, Emergence
 
@@ -11,22 +13,46 @@ class EmergenceSerializer(SolidModelSerializer):
         exclude = ["stone"]
 
 
+class MinimalMineralTypeSerializer(MineralTypeSerializer):
+    name = serializers.SerializerMethodField("get_name")
+    variety = serializers.SerializerMethodField("get_variety")
+
+    def get_name(self, obj):
+        return obj.general_information.name
+
+    def get_variety(self, obj):
+        return obj.general_information.variety_name
+
+    class Meta:
+        model = MineralType
+        fields = ["id", "name", "variety"]
+
+
 class CompositionSerializer(SolidModelSerializer):
-    compounds = serializers.CharField(
-        source="get_compounds",
-        label=Composition._meta.get_field("compounds").verbose_name
-    )
-    mineraltype_compounds = MineralTypeSerializer(many=True)
+    mineraltype_compounds = MinimalMineralTypeSerializer(many=True)
+
+    def to_representation(self, instance):
+        initial_repr = super(CompositionSerializer, self).to_representation(instance)
+        for compound in instance.compounds.split(", "):
+            initial_repr["mineraltype_compounds"].append(
+                {"id": None, "name": compound, "variety": ""}
+            )
+        return initial_repr
 
     class Meta:
         model = Composition
-        exclude = ["stone"]
+        exclude = ["stone", "compounds"]
 
 
-class GeneralInformationSerializer(SolidModelSerializer):
+class StoneGeneralInformationSerializer(SolidModelSerializer):
     class Meta:
         model = GeneralInformation
         exclude = ["stone"]
+
+    def to_representation(self, instance):
+        _repr = super(StoneGeneralInformationSerializer, self).to_representation(instance)
+        _repr["sub_name"] = None
+        return _repr
 
 
 class CharacteristcSerializer(SolidModelSerializer):
@@ -36,12 +62,13 @@ class CharacteristcSerializer(SolidModelSerializer):
 
 
 class StoneSerializer(SolidModelSerializer):
-    general_information = GeneralInformationSerializer()
+    general_information = StoneGeneralInformationSerializer()
     characteristics = CharacteristcSerializer()
     composition = CompositionSerializer()
     emergence = EmergenceSerializer()
+    media_objects = MediaObjectSerializer(many=True)
 
     class Meta:
         model = Stone
-        fields = "__all__"
+        exclude = ["tree_node"]
         depth = 1
