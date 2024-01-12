@@ -15,19 +15,17 @@ class EmergenceSerializer(SolidModelSerializer):
 
 class MinimalMineralTypeSerializer(MineralTypeSerializer):
     name = serializers.SerializerMethodField("get_name")
-    sub_name = serializers.SerializerMethodField("get_sub_name")
+    variety = serializers.SerializerMethodField("get_variety")
 
     def get_name(self, obj):
         return obj.general_information.name
 
-    def get_sub_name(self, obj):
-        if obj.general_information.variety_name:
-            return obj.general_information.name
-        return None
+    def get_variety(self, obj):
+        return obj.general_information.variety_name
 
     class Meta:
         model = MineralType
-        fields = ["id", "name", "sub_name"]
+        fields = ["id", "name", "variety"]
 
 
 class CompositionSerializer(SolidModelSerializer):
@@ -37,7 +35,7 @@ class CompositionSerializer(SolidModelSerializer):
         initial_repr = super(CompositionSerializer, self).to_representation(instance)
         for compound in instance.compounds.split(", "):
             initial_repr["mineraltype_compounds"].append(
-                {"id": None, "name": compound, "sub_name": ""}
+                {"id": None, "name": compound, "variety": ""}
             )
         return initial_repr
 
@@ -50,6 +48,11 @@ class StoneGeneralInformationSerializer(SolidModelSerializer):
     class Meta:
         model = GeneralInformation
         exclude = ["stone"]
+
+    def to_representation(self, instance):
+        _repr = super(StoneGeneralInformationSerializer, self).to_representation(instance)
+        _repr["sub_name"] = None
+        return _repr
 
 
 class CharacteristcSerializer(SolidModelSerializer):
@@ -67,5 +70,5 @@ class StoneSerializer(SolidModelSerializer):
 
     class Meta:
         model = Stone
-        fields = "__all__"
+        exclude = ["tree_node"]
         depth = 1

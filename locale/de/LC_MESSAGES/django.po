@@ -67,7 +67,7 @@ msgstr "Zuletzt geändert"
 
 #: geomat_content/models.py:45 geomat_content/models.py:46
 msgid "general information"
-msgstr ""
+msgstr "Allgemein"
 
 #: geomat_content/models.py:54
 msgid "comment"
