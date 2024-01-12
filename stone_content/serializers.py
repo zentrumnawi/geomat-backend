@@ -51,6 +51,11 @@ class StoneGeneralInformationSerializer(SolidModelSerializer):
         model = GeneralInformation
         exclude = ["stone"]
 
+    def to_representation(self, instance):
+        _repr = super(StoneGeneralInformationSerializer, self).to_representation(instance)
+        _repr["sub_name"] = None
+        return _repr
+
 
 class CharacteristcSerializer(SolidModelSerializer):
     class Meta:
