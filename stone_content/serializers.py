@@ -33,10 +33,11 @@ class CompositionSerializer(SolidModelSerializer):
 
     def to_representation(self, instance):
         initial_repr = super(CompositionSerializer, self).to_representation(instance)
-        for compound in instance.compounds.split(", "):
-            initial_repr["mineraltype_compounds"].append(
-                {"id": None, "name": compound, "variety": ""}
-            )
+        if instance.compounds:
+            for compound in instance.compounds.split(", "):
+                initial_repr["mineraltype_compounds"].append(
+                    {"id": None, "name": compound, "variety": ""}
+                )
         return initial_repr
 
     class Meta:
