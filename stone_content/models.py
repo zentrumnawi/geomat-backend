@@ -213,10 +213,12 @@ class Characteristic(models.Model):
             "sehr hoch",
         )
     )
-    sed_fabtric = ChoiceArrayField(
+    sed_fabric = ChoiceArrayField(
         models.CharField(
-            choices=SEDIMENT_CHOICES.choices(), max_length=2
+            choices=SEDIMENT_CHOICES.choices(), max_length=2, blank=True
         ),
+        null=True,
+        blank=True,
         verbose_name=_("Gefüge (Sediment)"),
     )
     ign_fabric = ChoiceArrayField(
