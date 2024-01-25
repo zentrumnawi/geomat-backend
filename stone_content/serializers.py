@@ -7,6 +7,17 @@ from geomat_content.serializers import MineralTypeSerializer
 from .models import Stone, GeneralInformation, Characteristic, Composition, Emergence
 
 
+class LabeledSerializerMethodField(serializers.SerializerMethodField):
+
+    def __init__(self, label="", *args, **kwargs):
+        self._label = label
+        super(LabeledSerializerMethodField, self).__init__(*args, **kwargs)
+
+    def bind(self, field_name, parent):
+        super(LabeledSerializerMethodField, self).bind(field_name, parent)
+        self.label = self._label
+
+
 class EmergenceSerializer(SolidModelSerializer):
     class Meta:
         model = Emergence
@@ -57,6 +68,11 @@ class StoneGeneralInformationSerializer(SolidModelSerializer):
 
 
 class CharacteristcSerializer(SolidModelSerializer):
+    density = LabeledSerializerMethodField(label=Characteristic._meta.get_field("density").verbose_name)
+
+    def get_density(self, obj):
+        return f"{obj.density.lower} - {obj.density.upper}"
+
     class Meta:
         model = Characteristic
         exclude = ["stone"]
