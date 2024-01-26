@@ -71,6 +71,8 @@ class CharacteristcSerializer(SolidModelSerializer):
     density = LabeledSerializerMethodField(label=Characteristic._meta.get_field("density").verbose_name)
 
     def get_density(self, obj):
+        if not obj.density:
+            return None
         return f"{obj.density.lower} - {obj.density.upper}"
 
     class Meta:
