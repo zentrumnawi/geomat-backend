@@ -1,22 +1,25 @@
 from django.contrib import admin
 from django.forms import ModelChoiceField, ModelForm, ModelMultipleChoiceField
-from solid_backend.media_object.admin import ImageMediaObjectInline, AudioVideoMediaObjectInline
+from solid_backend.media_object.admin import (
+    ImageMediaObjectInline,
+    AudioVideoMediaObjectInline,
+)
 
 from .models import Stone, GeneralInformation, Characteristic, Composition, Emergence
 
 
 class MineralTypeSelectField(ModelMultipleChoiceField):
     def label_from_instance(self, obj):
-        return obj.general_information.name + ", " + obj.general_information.variety_name
+        return (
+            obj.general_information.name + ", " + obj.general_information.variety_name
+        )
 
 
 class CompositionAdminForm(ModelForm):
     class Meta:
         model = Composition
         fields = "__all__"
-        field_classes = {
-            "mineraltype_compounds": MineralTypeSelectField
-        }
+        field_classes = {"mineraltype_compounds": MineralTypeSelectField}
 
 
 class EmergenceInline(admin.TabularInline):
@@ -43,7 +46,7 @@ class StoneAdmin(admin.ModelAdmin):
         CompositionInline,
         EmergenceInline,
         ImageMediaObjectInline,
-        AudioVideoMediaObjectInline
+        AudioVideoMediaObjectInline,
     ]
 
     class Meta:

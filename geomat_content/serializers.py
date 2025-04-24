@@ -13,11 +13,11 @@ from drf_spectacular.utils import extend_schema_field
 
 
 class VerboseLabelField(serializers.Field):
-
     def bind(self, field_name, parent):
         super(VerboseLabelField, self).bind(field_name, parent)
-        self.label = str(self.parent.Meta.model._meta.get_field(self.field_name).verbose_name)
-
+        self.label = str(
+            self.parent.Meta.model._meta.get_field(self.field_name).verbose_name
+        )
 
 
 @extend_schema_field({"type": "colstring"})
@@ -26,8 +26,7 @@ class ColStringField(VerboseLabelField, serializers.CharField):
 
 
 class CrystalSystemField(serializers.SerializerMethodField):
-    """
-    """
+    """ """
 
     def bind(self, field_name, parent):
         super(CrystalSystemField, self).bind(field_name, parent)
@@ -48,7 +47,6 @@ class CrystalSystemField(serializers.SerializerMethodField):
 
 @extend_schema_field({"type": "array", "items": {"type": "string"}})
 class ListVerboseField(VerboseLabelField):
-
     def __init__(self, choice_dict, **kwargs):
         super(ListVerboseField, self).__init__()
         self.choice_dict = dict(choice_dict)
@@ -73,7 +71,6 @@ class ListVerboseField(VerboseLabelField):
 
 
 class RangeOrSingleNumberField(VerboseLabelField):
-
     def to_representation(self, value):
         if float(value.upper) == float(value.lower) + 0.001:
             return "{}".format(value.lower).replace(".", ",")
@@ -90,15 +87,18 @@ class PropertySerializer(SolidModelSerializer):
 
     class Meta:
         model = Property
-        exclude = ["mineral_type", ]
+        exclude = [
+            "mineral_type",
+        ]
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
 class MiscellaneousSerializer(SolidModelSerializer):
-
     class Meta:
         model = Miscellaneous
-        exclude = ["mineral_type", ]
+        exclude = [
+            "mineral_type",
+        ]
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
@@ -111,7 +111,9 @@ class MineralTypeGeneralInformationSerializer(SolidModelSerializer):
         exclude = ["mineral_type", "created_at", "last_modified"]
 
     def to_representation(self, value):
-        initial_representation = super(MineralTypeGeneralInformationSerializer, self).to_representation(value)
+        initial_representation = super(
+            MineralTypeGeneralInformationSerializer, self
+        ).to_representation(value)
         if initial_representation["variety_name"]:
             initial_representation["sub_name"] = initial_representation["name"]
             initial_representation["name"] = initial_representation["variety_name"]

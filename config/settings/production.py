@@ -38,11 +38,11 @@ MIDDLEWARE = WHITENOISE_MIDDLEWARE + MIDDLEWARE
 # ------------------------------------------------------------------------------
 # Uploaded Media Files
 # ------------------------
-DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
 
 # URL that handles the media served from MEDIA_ROOT, used for managing
 # stored files.
-MEDIA_URL = env('DJANGO_GEOMAT_CDN_URL')
+MEDIA_URL = env("DJANGO_GEOMAT_CDN_URL")
 
 # STATICFILES
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

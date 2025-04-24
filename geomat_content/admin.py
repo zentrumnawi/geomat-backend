@@ -1,8 +1,17 @@
 from django.contrib import admin
 from django import forms
-from solid_backend.media_object.admin import AudioVideoMediaObjectInline, ImageMediaObjectInline
+from solid_backend.media_object.admin import (
+    AudioVideoMediaObjectInline,
+    ImageMediaObjectInline,
+)
 
-from .models import MineralType, CrystalSystem, Property, Miscellaneous, GeneralInformation
+from .models import (
+    MineralType,
+    CrystalSystem,
+    Property,
+    Miscellaneous,
+    GeneralInformation,
+)
 
 # Register your models here.
 
@@ -36,17 +45,14 @@ class GeneralInformationInline(admin.TabularInline):
 
 class MineralTypeAdmin(admin.ModelAdmin):
 
-    list_display = (
-        'get_name', 'get_variety',
-        'get_trivial_name', 'id'
-    )
+    list_display = ("get_name", "get_variety", "get_trivial_name", "id")
     inlines = [
         GeneralInformationInline,
         CrystalSystemInline,
         MiscellaneousInline,
         PropertyInline,
         ImageMediaObjectInline,
-        AudioVideoMediaObjectInline
+        AudioVideoMediaObjectInline,
     ]
 
     @admin.display(description="Name")
@@ -66,17 +72,16 @@ admin.site.register(MineralType, MineralTypeAdmin)
 
 
 class CrystallSystemAdmin(admin.ModelAdmin):
-    list_display = ('mineral_type', 'crystal_system', 'temperature',
-                    'pressure')
+    list_display = ("mineral_type", "crystal_system", "temperature", "pressure")
 
 
 class PropertyAdmin(admin.ModelAdmin):
-    list_display = ('mineral_type',)
+    list_display = ("mineral_type",)
     form = PropertyModelForm
 
 
 class MiscellaneousAdmin(admin.ModelAdmin):
-    list_display = ('mineral_type', 'resource_mindat', 'resource_mineralienatlas')
+    list_display = ("mineral_type", "resource_mindat", "resource_mineralienatlas")
 
 
 admin.site.register(CrystalSystem, CrystallSystemAdmin)
