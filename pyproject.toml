@@ -38,6 +38,9 @@ django-coverage-plugin = "^1.8.0"
 pytest-cov = "^2.8.1"
 black = "^19.10b0"
 
+[tool.poetry.group.dev.dependencies]
+flake8 = "^4.0.1"
+
 [tool.black]
 exclude = '''
 /(
