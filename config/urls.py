@@ -19,13 +19,30 @@ from django.conf.urls import include, url
 from django.urls import path
 from django.contrib import admin
 from django.conf import settings
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
+
 urlpatterns = [
     # YOUR PATTERNS
-    path(r'{}api/schema/'.format(settings.URI_PREFIX), SpectacularAPIView.as_view(), name='schema'),
+    path(
+        r"{}api/schema/".format(settings.URI_PREFIX),
+        SpectacularAPIView.as_view(),
+        name="schema",
+    ),
     # Optional UI:
-    path(r'{}api/schema/swagger-ui/'.format(settings.URI_PREFIX), SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path(r'{}api/schema/redoc/'.format(settings.URI_PREFIX), SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path(
+        r"{}api/schema/swagger-ui/".format(settings.URI_PREFIX),
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(
+        r"{}api/schema/redoc/".format(settings.URI_PREFIX),
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
 ]
 
 urlpatterns += [

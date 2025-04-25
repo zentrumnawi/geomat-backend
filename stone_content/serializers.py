@@ -8,7 +8,6 @@ from .models import Stone, GeneralInformation, Characteristic, Composition, Emer
 
 
 class LabeledSerializerMethodField(serializers.SerializerMethodField):
-
     def __init__(self, label="", *args, **kwargs):
         self._label = label
         super(LabeledSerializerMethodField, self).__init__(*args, **kwargs)
@@ -62,13 +61,17 @@ class StoneGeneralInformationSerializer(SolidModelSerializer):
         exclude = ["stone"]
 
     def to_representation(self, instance):
-        _repr = super(StoneGeneralInformationSerializer, self).to_representation(instance)
+        _repr = super(StoneGeneralInformationSerializer, self).to_representation(
+            instance
+        )
         _repr["sub_name"] = None
         return _repr
 
 
 class CharacteristcSerializer(SolidModelSerializer):
-    density = LabeledSerializerMethodField(label=Characteristic._meta.get_field("density").verbose_name)
+    density = LabeledSerializerMethodField(
+        label=Characteristic._meta.get_field("density").verbose_name
+    )
 
     def get_density(self, obj):
         if not obj.density:

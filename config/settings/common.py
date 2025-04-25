@@ -58,7 +58,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django.middleware.locale.LocaleMiddleware"
+    "django.middleware.locale.LocaleMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -99,9 +99,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 # Internationalization
@@ -140,8 +146,11 @@ LOCALE_PATHS = [str(ROOT_DIR("locale"))]
 
 
 PROFILES_SERIALIZERS = {
-    "mineraltype_related": ("geomat_content.serializers", "MineralTypeSerializer",),
-    "stone_related": ("stone_content.serializers", "StoneSerializer")
+    "mineraltype_related": (
+        "geomat_content.serializers",
+        "MineralTypeSerializer",
+    ),
+    "stone_related": ("stone_content.serializers", "StoneSerializer"),
 }
 
 DATABASE_FIELD_MAPPING = {}
@@ -154,12 +163,12 @@ CORS_ORIGIN_ALLOW_ALL = True
 # Restframework
 REST_FRAMEWORK = {
     # YOUR SETTINGS
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Geomat API',
-    'DESCRIPTION': "Backend for the e-learning application Geoamt.",
-    'VERSION': '1.0.0',
+    "TITLE": "Geomat API",
+    "DESCRIPTION": "Backend for the e-learning application Geoamt.",
+    "VERSION": "1.0.0",
     # OTHER SETTINGS
 }
