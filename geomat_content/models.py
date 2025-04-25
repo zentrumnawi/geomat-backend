@@ -26,17 +26,17 @@ class GeneralInformation(models.Model):
         to=MineralType,
         on_delete=models.CASCADE,
         related_name="general_information",
-        verbose_name=_("mineral type")
+        verbose_name=_("mineral type"),
     )
     name = models.CharField(max_length=100, blank=True, verbose_name=_("minerals"))
-    variety_name = models.CharField(max_length=100, blank=True, verbose_name=_("variety"))
+    variety_name = models.CharField(
+        max_length=100, blank=True, verbose_name=_("variety")
+    )
     trivial_name = models.CharField(
         max_length=100, null=True, blank=True, verbose_name=_("trivial name")
     )
 
-    chemical_formula = MDTextField(
-        max_length=100, verbose_name=_("chemical formula")
-    )
+    chemical_formula = MDTextField(max_length=100, verbose_name=_("chemical formula"))
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("created at"))
     last_modified = models.DateTimeField(auto_now=True, verbose_name=_("last modified"))
@@ -62,7 +62,7 @@ class Miscellaneous(models.Model):
         MineralType,
         verbose_name=_("mineral type"),
         related_name="miscellaneous",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
 
     class Meta:
@@ -93,12 +93,17 @@ class Property(models.Model):
 
     density = DecimalRangeField(null=True, blank=True, verbose_name=_("density"))
     fracture = ArrayField(
-        models.CharField(max_length=2, choices=FRACTURE_CHOICES,),
+        models.CharField(
+            max_length=2,
+            choices=FRACTURE_CHOICES,
+        ),
         null=True,
         verbose_name=_("fracture"),
     )
     lustre = ArrayField(
-        models.CharField(max_length=2, choices=LUSTRE_CHOICES, verbose_name=_("lustre")),
+        models.CharField(
+            max_length=2, choices=LUSTRE_CHOICES, verbose_name=_("lustre")
+        ),
         null=True,
         verbose_name=_("lustre"),
     )
@@ -109,7 +114,7 @@ class Property(models.Model):
         MineralType,
         verbose_name=_("mineral type"),
         related_name="property",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     cleavage_text = models.TextField(null=True, verbose_name=_("Cleavages"))
 
@@ -160,4 +165,6 @@ class CrystalSystem(models.Model):
         verbose_name_plural = _("Crystal Systems")
 
     def __str__(self):
-        return "{} ({})".format(self.mineral_type.general_information.name, self.crystal_system)
+        return "{} ({})".format(
+            self.mineral_type.general_information.name, self.crystal_system
+        )
