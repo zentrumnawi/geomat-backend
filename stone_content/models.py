@@ -36,6 +36,13 @@ class ChoiceArrayField(ArrayField):
 
 
 class Stone(SolidBaseProfile):
+
+    searchable_fields = [
+        "general_information__name",
+        "general_information__alt_name",
+        "general_information__eng_name",
+    ]
+
     class Meta:
         verbose_name = _("Stein")
         verbose_name_plural = _("Steine")

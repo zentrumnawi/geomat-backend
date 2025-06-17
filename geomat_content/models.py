@@ -12,6 +12,11 @@ class MineralType(SolidBaseProfile):
     Defines the mineral type model.
     """
 
+    searchable_fields = [
+        "general_information__name",
+        "general_information__trivial_name",
+    ]
+
     class Meta:
         verbose_name = _("mineral type")
         verbose_name_plural = _("mineral types")
