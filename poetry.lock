@@ -1866,14 +1866,14 @@ files = [
 
 [[package]]
 name = "solid-backend"
-version = "0.3.5"
+version = "0.3.8"
 description = "Clean Django app for e-learning application with..."
 category = "main"
 optional = false
-python-versions = ">=3.7,<4.0"
+python-versions = "<4.0,>=3.7"
 files = [
-    {file = "solid_backend-0.3.5-py3-none-any.whl", hash = "sha256:65ce684e0978ada757e84871dfde9fc7900610cad9742f862e256a1742a93020"},
-    {file = "solid_backend-0.3.5.tar.gz", hash = "sha256:7648653d981b8bcd91f8238cc1597a3c9cc476edfdef927f29249cba114e3944"},
+    {file = "solid_backend-0.3.8-py3-none-any.whl", hash = "sha256:4df45a420534f668c407b0feb7c7fe24fa8535fabb81cc63128a3ebfc00fb8ce"},
+    {file = "solid_backend-0.3.8.tar.gz", hash = "sha256:08966b1b6fcde6358925adfea5047129b258147e5b7ee1d6d3012c5f4fc69910"},
 ]
 
 [package.dependencies]

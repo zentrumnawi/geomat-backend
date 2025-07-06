@@ -36,6 +36,24 @@ class ChoiceArrayField(ArrayField):
 
 
 class Stone(SolidBaseProfile):
+
+    searchable_fields = [
+        "general_information__name",
+        "general_information__alt_name",
+        "general_information__eng_name",
+    ]
+
+    @classmethod
+    def get_optimized_queryset(cls):
+        return cls.objects.select_related(
+            "general_information",
+            "characteristics",
+            "composition",
+            "emergence",
+        ).prefetch_related(
+            "media_objects", "composition__mineraltype_compounds__general_information"
+        )
+
     class Meta:
         verbose_name = _("Stein")
         verbose_name_plural = _("Steine")

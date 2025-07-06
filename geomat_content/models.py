@@ -12,6 +12,22 @@ class MineralType(SolidBaseProfile):
     Defines the mineral type model.
     """
 
+    searchable_fields = [
+        "general_information__name",
+        "general_information__trivial_name",
+    ]
+
+    @classmethod
+    def get_optimized_queryset(cls):
+        return cls.objects.select_related(
+            "general_information",
+            "miscellaneous",
+            "property",
+        ).prefetch_related(
+            "crystal_system",
+            "media_objects",
+        )
+
     class Meta:
         verbose_name = _("mineral type")
         verbose_name_plural = _("mineral types")
