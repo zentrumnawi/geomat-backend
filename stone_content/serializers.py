@@ -92,5 +92,5 @@ class StoneSerializer(SolidModelSerializer):
 
     class Meta:
         model = Stone
-        exclude = ["tree_node"]
+        fields = "__all__"
         depth = 1

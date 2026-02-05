@@ -130,5 +130,5 @@ class MineralTypeSerializer(SolidModelSerializer):
 
     class Meta:
         model = MineralType
-        exclude = ["tree_node"]
+        fields = "__all__"
         depth = 2
